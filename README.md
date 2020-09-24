@@ -38,7 +38,14 @@ import { renderButton } from "@orbaone/verify";
 **Invoke the button rendering function**
 
 ```javascript
-renderButton(mountingElement, cb, apiKey, (options = {}));
+renderButton({
+  apiKey: "exampleAPIKey",
+  target: "#button",
+  disableStyle: false,
+  onSuccess: () => {},
+  onError: () => {},
+  steps: [],
+})
 ```
 
 **target** _string_: The DOM element you want to mount the button on 
