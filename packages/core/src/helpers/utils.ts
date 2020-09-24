@@ -90,7 +90,7 @@ export function getSessionUrl(verificationUrl: string, apiKey: string, applicant
     return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
 }
 
-export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: Function, onError: Function) {
+export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: (...args) => void, onError: (...args) => void) {
     let state: "loading" | "success" | "error" | "idle" = "idle";
 
     iframe.onload = function () {
