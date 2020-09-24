@@ -41,11 +41,16 @@ import { renderButton } from "@orbaone/verify";
 renderButton(mountingElement, cb, apiKey, (options = {}));
 ```
 
-**target** _string_: The DOM element you want to mount the button on   
+**target** _string_: The DOM element you want to mount the button on 
+
 **apiKey** _string_: The OrbaOne Key you obtained from the dashboard.
+
 **disableStyle** _boolean_ : The OrbaOne Key you obtained from the dashboard.  
+
 **onSuccess** _function_ : Callback function after onboarding is complete.
+
 **onError** _function_ : Callback function if onboarding has failed.
+
 **steps** _array_ : Array of verification steps.     
 
 
