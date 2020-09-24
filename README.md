@@ -15,10 +15,10 @@ Additionally, a non package manager dependant solution, based on HTML script tag
 
 ```bash
 # NPM
-npm install --save @orbaone/verify
+npm install --save @orbaone/core
 
 # Yarn
-yarn add @orbaone/verify
+yarn add @orbaone/core
 ```
 
 # 2. Get an API Key
