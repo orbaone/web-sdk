@@ -30,7 +30,7 @@ Orba One uses API keys to allow access to the API and show onboarded users in yo
 **Import the Orba One SDK**
 
 ```javascript
-import { renderButton } from "@orbaone/verify";
+import { renderButton } from "@orbaone/core";
 ```
 
 ## A. With a function
