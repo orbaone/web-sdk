@@ -1,13 +1,14 @@
 import { OrbaOneConfig } from "./helpers/types";
 
 import {
-    createButton,
+    getButton,
     createIframe,
     createLoader,
     getApplicationId,
     getSessionUrl,
     isValidConfig,
     OrbaOne,
+    applyDefaultButtonStyle,
 } from "./helpers/utils";
 
 function initializeVerification(config: OrbaOneConfig): void {
@@ -43,7 +44,8 @@ export function renderButton(config: OrbaOneConfig): void {
     const { target, disableStyle } = config;
 
     if (isValidConfig(["apiKey", "target", "onSuccess", "onError", "steps"], config)) {
-        const button = createButton(target, disableStyle);
+        const button = disableStyle ? getButton(target) : applyDefaultButtonStyle(getButton(target));
+
         button.onclick = () => {
             initializeVerification(config);
         };

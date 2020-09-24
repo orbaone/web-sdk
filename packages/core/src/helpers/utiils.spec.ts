@@ -1,16 +1,18 @@
 import {
     isDomElement,
     isValidConfig,
-    createButton,
+    getButton,
     createIframe,
     getSessionUrl,
     createLoader,
     OrbaOne,
     getApplicationId,
+    applyDefaultButtonStyle,
 } from "./utils";
 import fetchMock from "jest-fetch-mock";
 import { getByText, getByTestId, waitForElementToBeRemoved, screen } from "@testing-library/dom";
 import { getExampleDOM } from "../../../../tests/utils";
+// import { buttonStyles } from "../styles/styles";
 
 beforeEach(() => {
     fetchMock.resetMocks();
@@ -97,10 +99,26 @@ describe("isValidConfig test case", function () {
 });
 
 describe("create button test case", function () {
-    it("should return a button element", () => {
+    it("should return a button element with target being dom element", () => {
         const target = document.createElement("button");
-        const button = createButton(target);
+        target.classList.add("button");
+        const button = getButton(target);
 
+        expect(button.nodeType);
+    });
+
+    it("should return a dom element with target being query string", () => {
+        const target = document.createElement("button");
+        target.classList.add("button");
+        const button = getButton("#button");
+
+        expect(button.nodeType);
+    });
+
+    it("should return a button element with default styles", () => {
+        const target = document.createElement("button");
+        const button = applyDefaultButtonStyle(getButton(target));
+        expect(button.style).toBeDefined();
         expect(getByText(button, "Verify Me"));
     });
 });

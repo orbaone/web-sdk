@@ -61,16 +61,17 @@ function getButtonTemplate() {
 `;
 }
 
-export function createButton(target: string | HTMLElement | Element, disableStyle?: boolean) {
+export function getButton(target: string | HTMLElement | Element) {
     const buttonElement = isDomElement(target)
         ? (target as HTMLElement)
         : (document.querySelector(target) as HTMLElement);
-    if (!disableStyle) {
-        buttonElement.setAttribute("style", buttonStyles);
-        buttonElement.classList.add("orba-verify-button");
-        buttonElement.innerHTML = getButtonTemplate();
-    }
+    return buttonElement;
+}
 
+export function applyDefaultButtonStyle(buttonElement: HTMLElement) {
+    buttonElement.setAttribute("style", buttonStyles);
+    buttonElement.classList.add("orba-verify-button");
+    buttonElement.innerHTML = getButtonTemplate();
     return buttonElement;
 }
 
@@ -103,12 +104,9 @@ export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: Function, onError:
     function handler(event: any) {
         const json = JSON.parse(event.data);
 
-        // document.body.removeChild(iframe);
         if (json.status === "success") {
-            // evt.emit('onSuccess', {data: json})
             onSuccess(json);
         } else {
-            // evt.emit('onError', {data: json})
             onError(json);
         }
     }

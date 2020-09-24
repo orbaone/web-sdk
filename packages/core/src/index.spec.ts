@@ -18,13 +18,36 @@ beforeEach(() => {
 });
 
 describe("renderButton test case", function () {
-    test("It should render to a given target", () => {
+    it("should render to a given target", () => {
         const container = document.body;
         renderButton(config);
         expect(getByText(container, "Verify Me"));
     });
 
-    test("It should show loader when clicked", () => {
+    it("should render to a given target thats is a dom node", () => {
+        const container = document.body;
+        const button = document.createElement("button");
+
+        container.appendChild(button);
+
+        renderButton({
+            ...config,
+            target: button,
+        });
+        expect(getByText(container, "Verify Me"));
+    });
+
+    it("should render without default styles", () => {
+        const container = document.body;
+
+        renderButton({
+            ...config,
+            disableStyle: true,
+        });
+        expect(getByTestId(container, "button").innerHTML).toBe("");
+    });
+
+    it("should show loader when clicked", () => {
         const container = document.body;
         renderButton(config);
 
@@ -39,7 +62,7 @@ describe("renderButton test case", function () {
         expect(getByTestId(container, "loader"));
     });
 
-    test("It should try to fetch an applicantId", async () => {
+    it("should try to fetch an applicantId", async () => {
         const container = document.body;
         renderButton(config);
         //Fire mouse click
@@ -51,21 +74,5 @@ describe("renderButton test case", function () {
             }),
         );
         expect(fetchMock).toHaveBeenCalledTimes(1);
-    });
-
-    test("It should render to a given target thats is a dom node", () => {
-        const container = document.body;
-        const button = document.createElement("button");
-
-        container.appendChild(button);
-
-        renderButton({
-            apiKey: "test",
-            target: button,
-            onSuccess: () => null,
-            onError: () => null,
-            steps: [],
-        });
-        expect(getByText(container, "Verify Me"));
     });
 });

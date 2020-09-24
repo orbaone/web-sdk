@@ -1,8 +1,8 @@
 export function getExampleDOM() {
-  return `
+    return `
            <div>
                <h3>Example DOM</h3>
-               <div id="button"></div>
+               <div data-testid="button" id="button"></div>
            </div>
        `;
 }
