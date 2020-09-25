@@ -1,9 +1,11 @@
 import del from "rollup-plugin-delete";
 import pkg from "./package.json";
 import ts from "@wessberg/rollup-plugin-ts";
+import { terser } from "rollup-plugin-terser";
 
 // delete old typings to avoid issues
-require("fs").unlink("lib/index.d.ts", (err) => {});
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require("fs").unlink("lib/index.d.ts", () => {});
 
 export default {
     input: "src/index.ts",
@@ -33,5 +35,7 @@ export default {
             targets: "lib",
             hook: "buildStart",
         }),
+
+        terser({ compress: true }),
     ],
 };
