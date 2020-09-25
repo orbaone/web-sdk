@@ -22,17 +22,18 @@ function initializeVerification(config: OrbaOneConfig): void {
     orbaOneloader.show();
 
     getApplicationId(apiUrl, apiKey)
-        .then(async (response: Response) => {
-            const { applicantId } = await response.json();
-            const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps);
-            const iframe = createIframe(url);
-            const orbaOne = OrbaOne(iframe, onSuccess, onError);
-            try {
-                orbaOne.connect();
-            } catch (err) {
-                onError(err.message);
-                orbaOne.disconnect();
-            }
+        .then((response: Response) => {
+            response
+                .json()
+                .then((data) => {
+                    const url = getSessionUrl(verificationUrl, apiKey, data.applicantId, steps);
+                    const iframe = createIframe(url);
+                    const orbaOne = OrbaOne(iframe, onSuccess, onError);
+                    orbaOne.connect();
+                })
+                .catch((err) => {
+                    onError(err.message);
+                });
         })
         .catch((err) => {
             orbaOneloader.hide();

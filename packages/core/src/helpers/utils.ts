@@ -97,15 +97,25 @@ export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: (...args) => void,
         state = "success";
     };
 
-    iframe.onerror = function () {
+    iframe.onerror = function (err) {
         state = "error";
+        onError(err);
     };
+
+    function disconnect() {
+        state = "idle";
+        if (iframe) {
+            window.removeEventListener("message", handler);
+            document.body.removeChild(iframe);
+        }
+    }
 
     function handler(event: any) {
         const json = JSON.parse(event.data);
 
         if (json.status === "success") {
             onSuccess(json);
+            disconnect();
         } else {
             onError(json);
         }
@@ -113,6 +123,9 @@ export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: (...args) => void,
 
     return {
         connect() {
+            if (!iframe) {
+                throw `No iframe found. Please attach iframe before trying to connect`;
+            }
             if (state === "idle") {
                 state = "loading";
                 document.body.appendChild(iframe);
@@ -120,11 +133,7 @@ export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: (...args) => void,
             }
         },
 
-        disconnect() {
-            state = "idle";
-            window.removeEventListener("message", handler);
-            document.body.removeChild(iframe);
-        },
+        disconnect,
         status() {
             return state;
         },
