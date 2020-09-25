@@ -1,24 +1,24 @@
 # Orba One
 
 To integrate the Orba One SDK, follow this guide and use your
-own API Key which you can obtain from the developer dashboard.
+own API Key which you can obtained from the developer dashboard.
 
-The integration of the Orba One Web SDK follows a few simple steps:
+The integration of the Orba One Web SDK follows these simple steps:
 
 1. Install the SDK through NPM / Yarn
 2. Get an API Key
-3. Render a Orba One verification button and handle the result
+3. Render the Orba One verification button and handle the result
 
-Additionally, a non package manager dependant solution, based on HTML script tag, can be found at At [Orba One docs website](https://docs.orbaone.com/).
+Additionally, there is a non package manager installation option. You can start using Orba One SDK library by directly by including it in your HTML file. Instructions can be found **[HERE](#using-the-script-tag-in-the-browser)**.
 
 # 1. Install the SDK
 
 ```bash
-# NPM
-npm install --save @orbaone/core
-
 # Yarn
 yarn add @orbaone/core
+
+# NPM
+npm install --save @orbaone/core
 ```
 
 # 2. Get an API Key
@@ -33,31 +33,53 @@ Orba One uses API keys to allow access to the API and show onboarded users in yo
 import { renderButton } from "@orbaone/core";
 ```
 
-## A. With a function
-
-**Invoke the button rendering function**
+#### Example Usage 
 
 ```javascript
 renderButton({
   apiKey: "exampleAPIKey",
   target: "#button",
   disableStyle: false,
-  onSuccess: () => {},
-  onError: () => {},
-  steps: [],
+  onSuccess: (data) => {console.log(data)},
+  onError: (err) => {console.log(err),
+  steps: ['welcome'],
 })
 ```
 
-**target** _string_: The DOM element you want to mount the button on 
+#### renderButton(config) Options
 
-**apiKey** _string_: The OrbaOne Key you obtained from the dashboard.
+| Parameter    | Type                 | Description                                      |
+| ------------ | -------------------- | ------------------------------------------------ |
+| target       | string or DOMElement | The DOM element you want to mount the button on. |
+| apiKey       | string               | The OrbaOne Key you obtained from the dashboard. |
+| disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard. |
+| onSuccess    | function             | Callback function after onboarding is complete.  |
+| onError      | function             | Callback function if onboarding has failed.      |
+| steps        | array                | Array of verification steps.                     |
 
-**disableStyle** _boolean_ : The OrbaOne Key you obtained from the dashboard.  
 
-**onSuccess** _function_ : Callback function after onboarding is complete.
 
-**onError** _function_ : Callback function if onboarding has failed.
+## Using the script tag in the browser
 
-**steps** _array_ : Array of verification steps.     
+Simply add to your main html file.
+```htm
+<script type="text/javascript" defer="true" src="path/to/file.js" />
+```
 
+
+
+#### Example Usage 
+
+```html
+<script type="text/javascript">
+    OrbaOneVerifyCore.renderButton({
+      apiKey: "exampleAPIKey",
+      target: "#button",
+      disableStyle: false,
+      onSuccess: (data) => { console.log(data) },
+      onError: (err) => { console.log(err) },
+      steps: ['welcome']
+    })
+</script>
+```
 
