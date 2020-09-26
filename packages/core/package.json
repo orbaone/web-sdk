@@ -1,6 +1,6 @@
 {
     "name": "@orbaone/core",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "",
     "types": "lib/types/index.d.ts",
     "main": "lib/index.js",
@@ -8,7 +8,7 @@
     "browser": "lib/index.bundle.js",
     "repository": "git@github.com/orbaone/button.git",
     "author": "Nicolas Brown <nclsbrwn@gmail.com>",
-    "contributors":[
+    "contributors": [
         "Jordan Jones <proxima.aust@gmail.com> (https://heyjordn.com)",
         "Rojay Simpson <harrysmith1991@gmail.com>"
     ],
