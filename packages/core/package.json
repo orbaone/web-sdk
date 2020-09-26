@@ -1,6 +1,6 @@
 {
     "name": "@orbaone/core",
-    "version": "0.1.0",
+    "version": "1.0.1",
     "description": "",
     "types": "lib/types/index.d.ts",
     "main": "lib/index.js",
@@ -16,7 +16,6 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "dependencies": {},
     "devDependencies": {
         "@testing-library/dom": "^7.24.2",
         "@types/jest": "^26.0.12",
