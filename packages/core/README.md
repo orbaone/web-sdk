@@ -9,7 +9,7 @@ The integration of the Orba One Web SDK follows these simple steps:
 2. Get an API Key
 3. Render the Orba One verification button and handle the result
 
-Additionally, there is a non package manager installation option. You can start using Orba One SDK library by directly by including it in your HTML file. Instructions can be found **[HERE](#using-the-script-tag-in-the-browser)**.
+Additionally, there is a non package manager installation option. You can start using Orba One SDK library by directly by including it in your HTML file. Instructions can be found **[here](#Browser)**.
 
 # 1. Install the SDK
 
@@ -59,11 +59,11 @@ renderButton({
 
 
 
-## Using the script tag in the browser
+## Browser
 
-Simply add to your main html file.
+OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 ```htm
-<script type="text/javascript" defer="true" src="path/to/file.js" />
+<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core@1.0.5/lib/index.bundle.js" />
 ```
 
 
