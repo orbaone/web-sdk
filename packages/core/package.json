@@ -1,6 +1,6 @@
 {
     "name": "@orbaone/core",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "",
     "types": "lib/types/index.d.ts",
     "main": "lib/index.js",
