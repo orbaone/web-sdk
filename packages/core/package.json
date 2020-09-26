@@ -1,6 +1,6 @@
 {
     "name": "@orbaone/core",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "",
     "types": "lib/types/index.d.ts",
     "main": "lib/index.js",
@@ -31,5 +31,6 @@
         "rollup-plugin-terser": "^7.0.2",
         "ts-jest": "^26.3.0",
         "typescript": "^4.0.3"
-    }
+    },
+    "gitHead": "b5cc843be9a89c470326c58e3240853d2b4c17e3"
 }
