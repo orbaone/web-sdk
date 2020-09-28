@@ -58,6 +58,7 @@ export function renderButton(config: OrbaOneConfig) {
         // };
         return button;
     }
+    return undefined;
 }
 
 export { OrbaOneConfig };
