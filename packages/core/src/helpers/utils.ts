@@ -140,7 +140,13 @@ export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: (...args) => void,
     };
 }
 
-export function getApplicationId(apiUrl: string, apiKey: string) {
+export function getApplicationId(
+    apiUrl: string,
+    apiKey: string,
+    firstName: string,
+    middleName: string,
+    lastName: string,
+) {
     return fetch(`${apiUrl}/applicants/request`, {
         headers: {
             Accept: "application/json",
@@ -152,6 +158,9 @@ export function getApplicationId(apiUrl: string, apiKey: string) {
         method: "POST",
         body: JSON.stringify({
             publicKey: apiKey,
+            firstName,
+            lastName,
+            middleName,
         }),
     });
 }

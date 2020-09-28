@@ -11,7 +11,7 @@ import {
     applyDefaultButtonStyle,
 } from "./helpers/utils";
 
-function initializeVerification(config: OrbaOneConfig): void {
+function initializeVerification(config: OrbaOneConfig, data: Data): void {
     const { apiKey, onSuccess, onError, steps } = config;
     const apiUrl = "https://app.t3std3v.orbaone.com/api/v1";
     const verificationUrl = "https://verify.orbaone.com/";
@@ -21,7 +21,7 @@ function initializeVerification(config: OrbaOneConfig): void {
     const orbaOneloader = createLoader(orbaOneLoaderId);
     orbaOneloader.show();
 
-    getApplicationId(apiUrl, apiKey)
+    getApplicationId(apiUrl, apiKey, data.firstName, data.middleName, data.lastName)
         .then((response: Response) => {
             response
                 .json()
@@ -40,15 +40,19 @@ function initializeVerification(config: OrbaOneConfig): void {
             onError(err.message);
         });
 }
-
-export function renderButton(config: OrbaOneConfig): void {
+interface Data {
+    firstName: string;
+    middleName: string;
+    lastName: string;
+}
+export function renderButton(config: OrbaOneConfig, data: Data): void {
     const { target, disableStyle } = config;
 
     if (isValidConfig(["apiKey", "target", "onSuccess", "onError", "steps"], config)) {
         const button = disableStyle ? getButton(target) : applyDefaultButtonStyle(getButton(target));
 
         button.onclick = () => {
-            initializeVerification(config);
+            initializeVerification(config, data);
         };
     }
 }
