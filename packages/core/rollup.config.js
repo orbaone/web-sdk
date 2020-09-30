@@ -3,10 +3,6 @@ import pkg from "./package.json";
 import ts from "@wessberg/rollup-plugin-ts";
 import { terser } from "rollup-plugin-terser";
 
-// delete old typings to avoid issues
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require("fs").unlink("lib/index.d.ts", () => {});
-
 export default {
     input: "src/index.ts",
     output: [
@@ -19,21 +15,20 @@ export default {
             format: "es",
         },
         {
-            file: pkg.browser,
-            format: "iife",
-            name: "OrbaOneVerifyCore",
+            file: pkg["umd:main"],
+            format: "umd",
+            name: "OrbaOneWeb",
         },
     ],
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
-        ts({
-            typescript: require("typescript"),
-            tsconfig: "./tsconfig.json",
-        }),
-
         del({
             targets: "lib",
             hook: "buildStart",
+        }),
+        ts({
+            typescript: require("typescript"),
+            tsconfig: "./tsconfig.json",
         }),
 
         terser({ compress: true }),
