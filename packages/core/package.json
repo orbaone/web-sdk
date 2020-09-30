@@ -2,10 +2,10 @@
     "name": "@orbaone/core",
     "version": "1.0.5",
     "description": "",
-    "types": "lib/types/index.d.ts",
     "main": "lib/index.js",
     "module": "lib/index.es.js",
-    "browser": "lib/index.bundle.js",
+    "umd:main": "lib/index.umd.js",
+    "types": "lib/types/index.d.ts",
     "repository": "git@github.com/orbaone/button.git",
     "author": "Nicolas Brown <nclsbrwn@gmail.com>",
     "contributors": [

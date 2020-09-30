@@ -3,4 +3,5 @@ jest.config.js
 rollup.config.js
 node_modules
 debug.log
-./src
+tsconfig.tsbuildinfo
+src
