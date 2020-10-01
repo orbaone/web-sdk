@@ -21,7 +21,7 @@ export function UseOrbaOneExample() {
     });
 
     return (
-        <div className="hello">
+        <div className="test">
             <button ref={target} type="button">
                 insert here
             </button>
