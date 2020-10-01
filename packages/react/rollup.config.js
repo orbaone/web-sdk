@@ -17,7 +17,7 @@ export default {
             format: "esm",
         },
     ],
-    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+    external: [...Object.keys(packageJson.dependencies || {}), ...Object.keys(packageJson.peerDependencies || {})],
     plugins: [
         del({
             targets: "lib",
@@ -28,7 +28,7 @@ export default {
         commonjs(),
         ts({
             typescript: require("typescript"),
-            tsconfig: "./tsconfig.json",
+            tsconfig: "./tsconfig.prod.json",
         }),
     ],
 };
