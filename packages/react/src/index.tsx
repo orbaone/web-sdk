@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { renderButton, OrbaOneConfig } from "@orbaone/core";
+import React from "react";
 
-export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps">) {
+export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "disableStyle">) {
     const onErrorHandlerRef = useRef<Function | null>(null);
     const onChangeHandlerRef = useRef<Function | null>(null);
     const onSuccessHandlerRef = useRef<Function | null>(null);
@@ -9,6 +10,7 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps">) {
     const [errorData, onErrorData] = useState<any>();
     const [changeData, onChangesData] = useState<any>();
     const [successData, onSuccessData] = useState<any>();
+
     const { apiKey, steps } = config;
 
     useEffect(() => {
@@ -19,7 +21,6 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps">) {
 
     useEffect(() => {
         if (errorData && onErrorHandlerRef.current) {
-            console.log("useOrbaOne -> errorData", errorData);
             onErrorHandlerRef.current(errorData);
         }
     }, [errorData]);
@@ -30,12 +31,13 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps">) {
         }
     }, [changeData]);
 
-    function target(e: any) {
-        if (e) {
+    function target(el: any) {
+        if (el) {
             renderButton({
                 apiKey,
-                target: e,
+                target: el,
                 steps,
+                disableStyle: config.disableStyle,
                 onSuccess: (data: any) => onSuccessData(data),
                 onError: (data: any) => onErrorData(data),
                 onChange: (state) => {
@@ -58,3 +60,37 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps">) {
         },
     };
 }
+
+export const OrbaOne: React.FC<{ children: React.ReactElement } & Omit<OrbaOneConfig, "target">> = ({
+    children,
+    apiKey,
+    steps,
+    disableStyle,
+    onSuccess,
+    onError,
+    onChange,
+}) => {
+    const buttonRef = useRef<HTMLElement | null>(null);
+    //! ensures that children has only one child
+    const child = React.Children.only(children);
+    //! use to overwrite the ref prop of the child
+    const button = React.cloneElement(child, { ref: (e) => (buttonRef.current = e) });
+
+    useEffect(() => {
+        if (buttonRef.current) {
+            renderButton({
+                apiKey,
+                target: buttonRef.current,
+                steps,
+                disableStyle,
+                onSuccess,
+                onError,
+                onChange,
+            });
+        }
+    }, []);
+
+    return <Fragment>{button}</Fragment>;
+};
+
+export { OrbaOneConfig };
