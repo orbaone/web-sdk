@@ -5,7 +5,7 @@
     "main": "lib/index.js",
     "module": "lib/index.es.js",
     "umd:main": "lib/index.umd.js",
-    "types": "lib/types/index.d.ts",
+    "types": "lib/index.d.ts",
     "repository": "git@github.com/orbaone/button.git",
     "author": "Nicolas Brown <nclsbrwn@gmail.com>",
     "contributors": [
