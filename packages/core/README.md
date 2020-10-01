@@ -3,6 +3,12 @@
 To integrate the Orba One SDK, follow this guide and use your
 own API Key which you can obtained from the developer dashboard.
 
+---
+
+[![npm version](https://badge.fury.io/js/%40orbaone%2Fcore.svg)](https://badge.fury.io/js/%40orbaone%2Fcore)
+
+---
+
 The integration of the Orba One Web SDK follows these simple steps:
 
 1. Install the SDK through NPM / Yarn
