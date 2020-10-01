@@ -12,9 +12,10 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "dependencies": {},
+    "dependencies": {
+        "@orbaone/core": "1.0.8"
+    },
     "devDependencies": {
-        "@orbaone/core": "1.0.8",
         "@rollup/plugin-commonjs": "^15.1.0",
         "@rollup/plugin-node-resolve": "^9.0.0",
         "@testing-library/react": "^11.0.4",
