@@ -1,0 +1,36 @@
+{
+    "name": "@orbaone/react",
+    "version": "0.0.1",
+    "description": "",
+    "main": "lib/index.js",
+    "module": "lib/index.es.js",
+    "scripts": {
+        "build": "rollup -c",
+        "buid:watch": "tsc --watch",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {},
+    "devDependencies": {
+        "@orbaone/core": "1.0.8",
+        "@rollup/plugin-commonjs": "^15.1.0",
+        "@rollup/plugin-node-resolve": "^9.0.0",
+        "@testing-library/react": "^11.0.4",
+        "@types/jest": "^26.0.12",
+        "@types/react": "^16.9.49",
+        "@wessberg/rollup-plugin-ts": "^1.3.5",
+        "jest": "^26.4.2",
+        "jest-fetch-mock": "^3.0.3",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "rollup-plugin-delete": "^2.0.0",
+        "ts-jest": "^26.3.0",
+        "typescript": "^4.0.3"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    }
+}
