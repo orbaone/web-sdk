@@ -1,5 +1,3 @@
-import { buttonStyles, iframeStyles } from "../styles/styles";
-import { logo, loader } from "../styles/svg";
 import { OrbaOneConfig } from "./types";
 
 export function isDomElement(obj: any): obj is HTMLElement | Element {
@@ -45,99 +43,8 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
     return true;
 }
 
-function getButtonTemplate() {
-    return `
- <div style="display:flex; align-items: center;height: 100%;" >
-     <div style="display: flex;width: 20%;flex-direction: column; align-items: center; padding: 0.5rem 1rem 0 1rem;">
-         ${logo}
-         <p style="font-size:8px; color: #718096; white-space: nowrap;">By Orba One</p>
-     </div>
-     <div id="orba-one-loader" style="border-left: 1px solid #edf2f7; margin-top: 10px; margin-bottom: 10px; width:80%; display: flex; align-items:center; justify-items: center;padding: 0.5rem 1rem 0.5rem 1rem;">
-         <div  style="width: 100%; text-align:center;">
-             <p style="font-weight: 600; margin:0 auto; color: #4a5568;">Verify Me</p>
-         </div>
-     </div>
- </div>
-`;
-}
-
-export function getButton(target: string | HTMLElement | Element) {
-    const buttonElement = isDomElement(target)
-        ? (target as HTMLElement)
-        : (document.querySelector(target) as HTMLElement);
-    return buttonElement;
-}
-
-export function applyDefaultButtonStyle(buttonElement: HTMLElement) {
-    buttonElement.setAttribute("style", buttonStyles);
-    buttonElement.classList.add("orba-verify-button");
-    buttonElement.innerHTML = getButtonTemplate();
-    return buttonElement;
-}
-
-export function createIframe(url: string) {
-    const frame = document.createElement("iframe");
-    frame.allow = "geolocation; microphone; camera";
-    frame.src = url;
-    frame.setAttribute("style", iframeStyles);
-
-    //Set Test Id for DOM checking
-    frame.dataset.testid = "orba-iframe";
-    return frame;
-}
-
 export function getSessionUrl(verificationUrl: string, apiKey: string, applicantId: any, steps: string[]) {
     return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
-}
-
-export function OrbaOne(iframe: HTMLIFrameElement, onSuccess: (...args) => void, onError: (...args) => void) {
-    let state: "loading" | "success" | "error" | "idle" = "idle";
-
-    iframe.onload = function () {
-        state = "success";
-    };
-
-    iframe.onerror = function (err) {
-        state = "error";
-        onError(err);
-    };
-
-    function disconnect() {
-        state = "idle";
-        if (iframe) {
-            window.removeEventListener("message", handler);
-            document.body.removeChild(iframe);
-        }
-    }
-
-    function handler(event: any) {
-        const json = JSON.parse(event.data);
-
-        if (json.status === "success") {
-            onSuccess(json);
-            disconnect();
-        } else {
-            onError(json);
-        }
-    }
-
-    return {
-        connect() {
-            if (!iframe) {
-                throw `No iframe found. Please attach iframe before trying to connect`;
-            }
-            if (state === "idle") {
-                state = "loading";
-                document.body.appendChild(iframe);
-                window.addEventListener("message", handler, false);
-            }
-        },
-
-        disconnect,
-        status() {
-            return state;
-        },
-    };
 }
 
 export function getApplicationId(apiUrl: string, apiKey: string) {
@@ -154,16 +61,4 @@ export function getApplicationId(apiUrl: string, apiKey: string) {
             publicKey: apiKey,
         }),
     });
-}
-
-export function createLoader(orbaOneLoaderId: string) {
-    const orbaOneloader = document.querySelector(orbaOneLoaderId) as HTMLElement;
-    return {
-        show() {
-            orbaOneloader.innerHTML = loader;
-        },
-        hide() {
-            orbaOneloader.innerHTML = "";
-        },
-    };
 }
