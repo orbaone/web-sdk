@@ -33,7 +33,7 @@ Orba One uses API keys to allow access to the API and show onboarded users in yo
 import { renderButton } from "@orbaone/core";
 ```
 
-#### Example Usage 
+#### Example Usage
 
 ```javascript
 renderButton({
@@ -57,29 +57,29 @@ renderButton({
 | onError      | function             | Callback function if onboarding has failed.      |
 | steps        | array                | Array of verification steps.                     |
 
-
-
 ## Browser
 
 OrbaOne is available over [unpkg](https://unpkg.com/) CDN
+
 ```htm
 <script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core@1.0.5/lib/index.bundle.js" />
 ```
 
-
-
-#### Example Usage 
+#### Example Usage
 
 ```html
 <script type="text/javascript">
-    OrbaOneVerifyCore.renderButton({
-      apiKey: "exampleAPIKey",
-      target: "#button",
-      disableStyle: false,
-      onSuccess: (data) => { console.log(data) },
-      onError: (err) => { console.log(err) },
-      steps: ['welcome']
-    })
+    OrbaOne.renderButton({
+        apiKey: "exampleAPIKey",
+        target: "#button",
+        disableStyle: false,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError: (err) => {
+            console.log(err);
+        },
+        steps: ["welcome"],
+    });
 </script>
 ```
-

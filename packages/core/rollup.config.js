@@ -17,7 +17,7 @@ export default {
         {
             file: pkg["umd:main"],
             format: "umd",
-            name: "OrbaOneWeb",
+            name: "OrbaOne",
         },
     ],
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
