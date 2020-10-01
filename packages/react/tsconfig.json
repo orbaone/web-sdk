@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "lib",
+        "declarationDir": "lib",
+
+        "declaration": true,
+        "rootDir": "../..",
+
+        "jsx": "react"
+    },
+    "exclude": ["node_modules", "lib"]
+    // "include": ["../../tests"]
+}
