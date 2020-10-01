@@ -1,16 +1,6 @@
-import {
-    isDomElement,
-    isValidConfig,
-    getButton,
-    createIframe,
-    getSessionUrl,
-    createLoader,
-    OrbaOne,
-    getApplicationId,
-    applyDefaultButtonStyle,
-} from "./utils";
+import { isDomElement, isValidConfig, getSessionUrl, getApplicationId } from "./utils";
 import fetchMock from "jest-fetch-mock";
-import { getByText, getByTestId, waitForElementToBeRemoved, screen } from "@testing-library/dom";
+// import { getByText, getByTestId, waitForElementToBeRemoved, screen } from "@testing-library/dom";
 import { getExampleDOM } from "../../../../tests/utils";
 // import { buttonStyles } from "../styles/styles";
 
@@ -98,106 +88,10 @@ describe("isValidConfig test case", function () {
     });
 });
 
-describe("create button test case", function () {
-    it("should return a button element with target being dom element", () => {
-        const target = document.createElement("button");
-        target.classList.add("button");
-        const button = getButton(target);
-
-        expect(button.nodeType);
-    });
-
-    it("should return a dom element with target being query string", () => {
-        const target = document.createElement("button");
-        target.classList.add("button");
-        const button = getButton("#button");
-
-        expect(button.nodeType);
-    });
-
-    it("should return a button element with default styles", () => {
-        const target = document.createElement("button");
-        const button = applyDefaultButtonStyle(getButton(target));
-        expect(button.style).toBeDefined();
-        expect(getByText(button, "Verify Me"));
-    });
-});
-describe("create  iframetest case", function () {
-    it("should return a iframe element", () => {
-        const iframe = createIframe("http://test.com");
-        expect(iframe.nodeName).toBe("IFRAME");
-    });
-});
-
 describe("create session url test case", function () {
     it("should return a valid url", () => {
         const sessionUrl = getSessionUrl("http://test.com", "key", "1", ["welcome"]);
         expect(sessionUrl).toBe("http://test.com?publicKey=key&applicantId=1&steps=welcome");
-    });
-});
-
-describe("button loader test case", function () {
-    it("should show loader", () => {
-        const container = document.body;
-        const target = document.createElement("div");
-        target.id = "parent";
-        container.appendChild(target);
-
-        const animatedLoader = createLoader("#button");
-        animatedLoader.show();
-
-        expect(getByTestId(container, "loader"));
-    });
-
-    it("should remove loader", async () => {
-        const container = document.body;
-        const target = document.createElement("div");
-
-        target.id = "parent";
-        container.appendChild(target);
-        const animatedLoader = createLoader("#button");
-
-        animatedLoader.show();
-        setInterval(() => {
-            animatedLoader.hide();
-        }, 1000);
-        await waitForElementToBeRemoved(() => screen.getByTestId("loader"));
-
-        expect(target.innerHTML).toBe("");
-    });
-});
-
-describe("iframe test case", function () {
-    it("should render iframe", () => {
-        const iframe = createIframe("http://test.com");
-        const orbaOne = OrbaOne(
-            iframe,
-            () => {},
-            () => {},
-        );
-
-        orbaOne.connect();
-
-        expect(screen.getByTestId("orba-iframe"));
-    });
-
-    it("should render and remove iframe", async () => {
-        const iframe = createIframe("http://test.com");
-        const orbaOne = OrbaOne(
-            iframe,
-            () => {},
-            () => {},
-        );
-
-        orbaOne.connect();
-
-        setInterval(() => {
-            orbaOne.disconnect();
-        }, 1000);
-
-        await waitForElementToBeRemoved(() => screen.getByTestId("orba-iframe"));
-
-        expect(screen.queryByTestId("orba-iframe")).toBeNull();
     });
 });
 

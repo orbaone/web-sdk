@@ -1,25 +1,15 @@
+import { createButton } from "./elements/button";
+import { createIframe } from "./elements/iframe";
+import { apiUrl, verificationUrl } from "./helpers/defaultConfig";
 import { OrbaOneConfig } from "./helpers/types";
 
-import {
-    getButton,
-    createIframe,
-    createLoader,
-    getApplicationId,
-    getSessionUrl,
-    isValidConfig,
-    OrbaOne,
-    applyDefaultButtonStyle,
-} from "./helpers/utils";
+import { getApplicationId, getSessionUrl, isValidConfig } from "./helpers/utils";
 
-function initializeVerification(config: OrbaOneConfig): void {
+function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof createButton>): void {
     const { apiKey, onSuccess, onError, steps } = config;
-    const apiUrl = "https://app.t3std3v.orbaone.com/api/v1";
-    const verificationUrl = "https://verify.orbaone.com/";
-    const orbaOneLoaderId = "#orba-one-loader";
 
     //Set Loading state
-    const orbaOneloader = createLoader(orbaOneLoaderId);
-    orbaOneloader.show();
+    button.setState("loading");
 
     getApplicationId(apiUrl, apiKey)
         .then((response: Response) => {
@@ -27,28 +17,29 @@ function initializeVerification(config: OrbaOneConfig): void {
                 .json()
                 .then((data) => {
                     const url = getSessionUrl(verificationUrl, apiKey, data.applicantId, steps);
-                    const iframe = createIframe(url);
-                    const orbaOne = OrbaOne(iframe, onSuccess, onError);
-                    orbaOne.connect();
+                    const iframe = createIframe(url, onSuccess, onError);
+                    iframe.connect();
+
+                    button.setState("success");
                 })
                 .catch((err) => {
                     onError(err.message);
                 });
         })
         .catch((err) => {
-            orbaOneloader.hide();
+            button.setState("error");
             onError(err.message);
         });
 }
 
 export function renderButton(config: OrbaOneConfig): void {
-    const { target, disableStyle } = config;
+    const { target, disableStyle, onChange } = config;
 
     if (isValidConfig(["apiKey", "target", "onSuccess", "onError", "steps"], config)) {
-        const button = disableStyle ? getButton(target) : applyDefaultButtonStyle(getButton(target));
+        const button = createButton(target, disableStyle, onChange);
 
-        button.onclick = () => {
-            initializeVerification(config);
+        button.el.onclick = () => {
+            initializeVerification(config, button);
         };
     }
 }
