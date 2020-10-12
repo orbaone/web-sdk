@@ -20,7 +20,7 @@ function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof
 export function renderButton(config: OrbaOneConfig): void {
     const { target, disableStyle, onChange } = config;
 
-    if (isValidConfig(["apiKey", "target", "onSuccess", "onError", "steps"], config)) {
+    if (isValidConfig(["apiKey", "applicantId", "target", "onSuccess", "onCancelled", "onError", "steps"], config)) {
         const button = createButton(target, disableStyle, onChange);
 
         button.el.onclick = () => {

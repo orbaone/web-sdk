@@ -30,6 +30,11 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
                 throw `onSuccess must be a function, please see https://docs.orbaone.com`;
             }
         },
+        onCancelled: (val: any) => {
+            if (typeof val !== "function") {
+                throw `onCancelled must be a function, please see https://docs.orbaone.com`;
+            }
+        },
         onError: (val: any) => {
             if (typeof val !== "function") {
                 throw `onError must be a function, please see https://docs.orbaone.com`;
