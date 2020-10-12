@@ -1,4 +1,4 @@
-import { isDomElement, isValidConfig, getSessionUrl, getApplicationId } from "./utils";
+import { isDomElement, isValidConfig, getSessionUrl } from "./utils";
 import fetchMock from "jest-fetch-mock";
 // import { getByText, getByTestId, waitForElementToBeRemoved, screen } from "@testing-library/dom";
 import { getExampleDOM } from "../../../../tests/utils";
@@ -47,14 +47,20 @@ describe("isValidConfig test case", function () {
         expect(function () {
             isValidConfig(["target"], { apiKey: "test" });
         }).toThrowError(
-            `Target Element ${undefined} must be of type string or DOM Element, please see https://docs.orbaone.com`,
+            `target ${undefined} must be of type string or DOM Element, please see https://docs.orbaone.com`,
         );
+    });
+    
+    it("should throw applicantId error message", function () {
+        expect(function () {
+            isValidConfig(["applicantId"], { target: "#button" });
+        }).toThrowError("applicantId key required, please see https://docs.orbaone.com");
     });
 
     it("should throw apiKey error message", function () {
         expect(function () {
             isValidConfig(["apiKey"], { target: "#button" });
-        }).toThrowError("Api key required, please see https://docs.orbaone.com");
+        }).toThrowError("apiKey required, please see https://docs.orbaone.com");
     });
 
     it("should throw onSuccess error message", function () {
@@ -95,12 +101,3 @@ describe("create session url test case", function () {
     });
 });
 
-describe("getApplicationId test case", function () {
-    test("should try to fetch an applicantId", async () => {
-        const apiUrl = "https://app.t3std3v.orbaone.com/api/v1";
-        const apiKey = "test";
-        getApplicationId(apiUrl, apiKey);
-
-        expect(fetchMock).toHaveBeenCalledTimes(1);
-    });
-});

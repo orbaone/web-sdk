@@ -38,10 +38,10 @@ export function createButtonState(orbaOneloader: HTMLElement) {
             orbaOneloader.innerHTML = setButtonText("Verify Me");
         },
         success() {
-            orbaOneloader.innerHTML = setButtonText("In Progress");
+            orbaOneloader.innerHTML = setButtonText("Complete");
         },
         error() {
-            orbaOneloader.innerHTML = setButtonText("Could Not Start Veriification");
+            orbaOneloader.innerHTML = setButtonText("Could Not Start Verification");
         },
     };
 }

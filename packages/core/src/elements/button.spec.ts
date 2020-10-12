@@ -45,12 +45,12 @@ describe("create button test case", function () {
         expect(getByTestId(button.el, "loader"));
     });
 
-    it("should show text 'In Progress'", () => {
+    it("should show text 'Complete'", () => {
         const target = document.createElement("button");
         const button = createButton(target);
         button.setState("success");
 
-        expect(getByText(button.el, "In Progress"));
+        expect(getByText(button.el, "Complete"));
     });
 
     it("should show text 'Could Not Start Veriification'", () => {
@@ -58,6 +58,6 @@ describe("create button test case", function () {
         const button = createButton(target);
         button.setState("error");
 
-        expect(getByText(button.el, "Could Not Start Veriification"));
+        expect(getByText(button.el, "Could Not Start Verification"));
     });
 });

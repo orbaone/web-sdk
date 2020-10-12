@@ -1,14 +1,16 @@
-import { renderButton } from ".";
+import { OrbaOneConfig, renderButton } from ".";
 import { getExampleDOM } from "../../../tests/utils";
 
 import fetchMock from "jest-fetch-mock";
 import { getByText, getByTestId, fireEvent } from "@testing-library/dom";
 
-const config = {
+const config: OrbaOneConfig = {
     apiKey: "test",
+    applicantId: '1',
     target: "#button",
     onSuccess: () => null,
     onError: () => null,
+    onCancelled: () => null,
     steps: [],
 };
 
@@ -62,17 +64,4 @@ describe("renderButton test case", function () {
         expect(getByTestId(container, "loader"));
     });
 
-    it("should try to fetch an applicantId", async () => {
-        const container = document.body;
-        renderButton(config);
-        //Fire mouse click
-        fireEvent(
-            getByText(container, "Verify Me"),
-            new MouseEvent("click", {
-                bubbles: true,
-                cancelable: true,
-            }),
-        );
-        expect(fetchMock).toHaveBeenCalledTimes(1);
-    });
 });

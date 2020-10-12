@@ -1,6 +1,6 @@
 import { iframeStyles } from "../styles/styles";
 
-export function createIframe(url: string, onSuccess: (...args) => void, onError: (...args) => void) {
+export function createIframe(url: string, onSuccess: (...args) => void, onCancelled: (...args) => void, onError: (...args) => void) {
     const frame = document.createElement("iframe");
     frame.allow = "geolocation; microphone; camera";
     frame.src = url;
@@ -8,10 +8,10 @@ export function createIframe(url: string, onSuccess: (...args) => void, onError:
 
     //Set Test Id for DOM checking
     frame.dataset.testid = "orba-iframe";
-    return iframeManager(frame, onSuccess, onError);
+    return iframeManager(frame, onSuccess, onCancelled, onError);
 }
 
-export function iframeManager(iframe: HTMLIFrameElement, onSuccess: (...args) => void, onError: (...args) => void) {
+export function iframeManager(iframe: HTMLIFrameElement, onSuccess: (...args) => void, onCancelled: (...args) => void, onError: (...args) => void) {
     let state: "loading" | "success" | "error" | "idle" = "idle";
 
     iframe.onload = function () {
@@ -37,7 +37,10 @@ export function iframeManager(iframe: HTMLIFrameElement, onSuccess: (...args) =>
         if (json.status === "success") {
             onSuccess(json);
             disconnect();
-        } else {
+        } else if (json.status === "cancelled") {
+            onCancelled(json);
+            disconnect();
+        }else {
             onError(json);
         }
     }

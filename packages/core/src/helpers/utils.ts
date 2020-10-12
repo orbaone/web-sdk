@@ -12,12 +12,17 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
     const validationSchema = {
         target: (val: any) => {
             if (typeof val !== "string" && !isDomElement(val)) {
-                throw `Target Element ${val} must be of type string or DOM Element, please see https://docs.orbaone.com`;
+                throw `target ${val} must be of type string or DOM Element, please see https://docs.orbaone.com`;
+            }
+        },
+        applicantId: (val: any) => {
+            if (typeof val !== "string") {
+                throw `applicantId key required, please see https://docs.orbaone.com`;
             }
         },
         apiKey: (val: any) => {
             if (typeof val !== "string") {
-                throw `Api key required, please see https://docs.orbaone.com`;
+                throw `apiKey required, please see https://docs.orbaone.com`;
             }
         },
         onSuccess: (val: any) => {

@@ -5,6 +5,7 @@ import { waitForElementToBeRemoved, screen } from "@testing-library/dom";
 
 const config = {
     url: "http://test.com",
+    onCancelled: () => null,
     onSuccess: () => null,
     onError: () => null,
 };
@@ -15,12 +16,12 @@ beforeEach(() => {
 
 describe("iframe test case", function () {
     it("should return a iframe element", () => {
-        const iframe = createIframe(config.url, config.onSuccess, config.onError);
+        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError);
         expect(iframe.el.nodeName).toBe("IFRAME");
     });
 
     it("should render iframe", () => {
-        const iframe = createIframe(config.url, config.onSuccess, config.onError);
+        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError);
 
         iframe.connect();
 
@@ -28,7 +29,7 @@ describe("iframe test case", function () {
     });
 
     it("should render and remove iframe", async () => {
-        const iframe = createIframe(config.url, config.onSuccess, config.onError);
+        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError);
 
         iframe.connect();
 

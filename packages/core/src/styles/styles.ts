@@ -1,7 +1,7 @@
 // Thanks to CSS tricks for this Safari Mobile hack
 // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
 
-const vh = window.innerHeight * 0.01;
+const vh = window.parent.innerHeight * 0.01;
 document.documentElement.style.setProperty("--vh", `${vh}px`);
 
 const buttonStyles = `

@@ -1,35 +1,20 @@
 import { createButton } from "./elements/button";
 import { createIframe } from "./elements/iframe";
-import { apiUrl, verificationUrl } from "./helpers/defaultConfig";
+import { verificationUrl } from "./helpers/defaultConfig";
 import { OrbaOneConfig } from "./helpers/types";
 
-import { getApplicationId, getSessionUrl, isValidConfig } from "./helpers/utils";
+import { getSessionUrl, isValidConfig } from "./helpers/utils";
 
 function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof createButton>): void {
-    const { apiKey, onSuccess, onError, steps } = config;
+    const { apiKey, applicantId, onSuccess, onCancelled, onError, steps } = config;
 
     //Set Loading state
     button.setState("loading");
+    
+    const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps);
+    const iframe = createIframe(url, onSuccess, onCancelled, onError);
+    iframe.connect();
 
-    getApplicationId(apiUrl, apiKey)
-        .then((response: Response) => {
-            response
-                .json()
-                .then((data) => {
-                    const url = getSessionUrl(verificationUrl, apiKey, data.applicantId, steps);
-                    const iframe = createIframe(url, onSuccess, onError);
-                    iframe.connect();
-
-                    button.setState("success");
-                })
-                .catch((err) => {
-                    onError(err.message);
-                });
-        })
-        .catch((err) => {
-            button.setState("error");
-            onError(err.message);
-        });
 }
 
 export function renderButton(config: OrbaOneConfig): void {
