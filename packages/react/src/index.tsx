@@ -1,8 +1,9 @@
+import React from "react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { renderButton, OrbaOneConfig } from "@orbaone/core";
-import React from "react";
 
-export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "disableStyle">) {
+export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "disableStyle" | "applicantId">) {
+    const onCancelHandlerRef = useRef<Function | null>(null);
     const onErrorHandlerRef = useRef<Function | null>(null);
     const onChangeHandlerRef = useRef<Function | null>(null);
     const onSuccessHandlerRef = useRef<Function | null>(null);
@@ -10,6 +11,7 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "dis
     const [errorData, onErrorData] = useState<any>();
     const [changeData, onChangesData] = useState<any>();
     const [successData, onSuccessData] = useState<any>();
+    const [cancelData, onCancelData] = useState<any>();
 
     const { apiKey, steps } = config;
 
@@ -31,11 +33,18 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "dis
         }
     }, [changeData]);
 
+    useEffect(() => {
+        if (cancelData && onChangeHandlerRef.current) {
+            onChangeHandlerRef.current(cancelData);
+        }
+    }, [cancelData]);
+
     function target(el: any) {
         if (el) {
             renderButton({
                 apiKey,
                 target: el,
+                applicantId: config.applicantId,
                 steps,
                 disableStyle: config.disableStyle,
                 onSuccess: (data: any) => onSuccessData(data),
@@ -43,6 +52,7 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "dis
                 onChange: (state) => {
                     onChangesData(state);
                 },
+                onCancelled: (data) => onCancelData(data),
             });
         }
     }
@@ -58,17 +68,22 @@ export function useOrbaOne(config: Pick<OrbaOneConfig, "apiKey" | "steps" | "dis
         onChange: (handler: Function) => {
             onChangeHandlerRef.current = handler;
         },
+        onCancelled: (handler: Function) => {
+            onCancelHandlerRef.current = handler;
+        },
     };
 }
 
 export const OrbaOne: React.FC<{ children: React.ReactElement } & Omit<OrbaOneConfig, "target">> = ({
     children,
     apiKey,
+    applicantId,
     steps,
     disableStyle,
     onSuccess,
     onError,
     onChange,
+    onCancelled,
 }) => {
     const buttonRef = useRef<HTMLElement | null>(null);
     //! ensures that children has only one child
@@ -83,9 +98,11 @@ export const OrbaOne: React.FC<{ children: React.ReactElement } & Omit<OrbaOneCo
                 target: buttonRef.current,
                 steps,
                 disableStyle,
+                applicantId,
                 onSuccess,
                 onError,
                 onChange,
+                onCancelled,
             });
         }
     }, []);

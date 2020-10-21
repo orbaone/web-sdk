@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useOrbaOne } from "..";
+import { useOrbaOne } from "../src";
 
 export function UseOrbaOneExample() {
     const [errorMessage, setError] = useState<any>();
     const [successMessage, setSuccess] = useState<any>();
     const [state, setState] = useState<any>();
 
-    const { target, onError, onSuccess, onChange } = useOrbaOne({
+    const { target, onError, onSuccess, onChange, onCancelled } = useOrbaOne({
         apiKey: "test",
         steps: [],
+        applicantId: "test",
     });
 
     onError((d: any) => setError(d));
@@ -18,6 +19,10 @@ export function UseOrbaOneExample() {
 
     onChange((s) => {
         setState(s);
+    });
+
+    onCancelled((d) => {
+        setState(d);
     });
 
     return (
