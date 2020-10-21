@@ -44,6 +44,7 @@ import { renderButton } from "@orbaone/core";
 ```javascript
 renderButton({
   apiKey: "exampleAPIKey",
+  applicantId: "test",
   target: "#button",
   disableStyle: false,
   onSuccess: (data) => {console.log(data)},
@@ -51,22 +52,22 @@ renderButton({
   onChange: (state) => {console.log(state);},
   onCancelled: (data) => {console.log(data);},
   steps: ['welcome'],
-       
 })
 ```
 
 #### renderButton(config) Options
 
-| Parameter    | Type                 | Description                                                  |
-| ------------ | -------------------- | ------------------------------------------------------------ |
-| target       | string or DOMElement | The DOM element you want to mount the button on.             |
-| apiKey       | string               | The OrbaOne Key you obtained from the dashboard.             |
-| disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.             |
-| onSuccess    | function             | Callback function that is triggered after onboarding is complete. |
-| onError      | function             | Callback function that is triggered if onboarding has failed. |
+| Parameter    | Type                 | Description                                                               |
+| ------------ | -------------------- | ------------------------------------------------------------------------- |
+| target       | string or DOMElement | The DOM element you want to mount the button on.                          |
+| apiKey       | string               | The OrbaOne Key you obtained from the dashboard.                          |
+| applicantId  | string               | The application ID Use to create the verification session.                |
+| disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.                          |
+| onSuccess    | function             | Callback function that is triggered after onboarding is complete.         |
+| onError      | function             | Callback function that is triggered if onboarding has failed.             |
 | onChange     | function             | Callback function that is triggered when the state of the button changes. |
-| onCancelled  | function             | Callback function that is triggered if the onboarding is cancelled. |
-| steps        | array                | Array of verification steps.                                 |
+| onCancelled  | function             | Callback function that is triggered if the onboarding is cancelled.       |
+| steps        | array                | Array of verification steps.                                              |
 
 ## Browser
 
@@ -82,6 +83,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 <script type="text/javascript">
     OrbaOne.renderButton({
         apiKey: "exampleAPIKey",
+        applicantId: "test",
         target: "#button",
         disableStyle: false,
         onSuccess: (data) => {
@@ -91,7 +93,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
             console.log(err);
         },
         onChange: (state) => {
-             console.log(state);
+            console.log(state);
         },
         onCancelled: (data) => {
             console.log(data);
