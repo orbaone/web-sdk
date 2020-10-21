@@ -1,6 +1,14 @@
 import { iframeStyles } from "../styles/styles";
 
-export function createIframe(url: string, onSuccess: (...args) => void, onCancelled: (...args) => void, onError: (...args) => void) {
+type State = "loading" | "success" | "error" | "idle";
+
+export function createIframe(
+    url: string,
+    onSuccess: (...args) => void,
+    onCancelled: (...args) => void,
+    onError: (...args) => void,
+    onChange: (state: State) => void,
+) {
     const frame = document.createElement("iframe");
     frame.allow = "geolocation; microphone; camera";
     frame.src = url;
@@ -8,23 +16,32 @@ export function createIframe(url: string, onSuccess: (...args) => void, onCancel
 
     //Set Test Id for DOM checking
     frame.dataset.testid = "orba-iframe";
-    return iframeManager(frame, onSuccess, onCancelled, onError);
+    return iframeManager(frame, onSuccess, onCancelled, onError, onChange);
 }
 
-export function iframeManager(iframe: HTMLIFrameElement, onSuccess: (...args) => void, onCancelled: (...args) => void, onError: (...args) => void) {
-    let state: "loading" | "success" | "error" | "idle" = "idle";
+export function iframeManager(
+    iframe: HTMLIFrameElement,
+    onSuccess: (...args) => void,
+    onCancelled: (...args) => void,
+    onError: (...args) => void,
+    onChange: (state: State) => void,
+) {
+    let state: State = "idle";
 
     iframe.onload = function () {
         state = "success";
+        onChange(state);
     };
 
     iframe.onerror = function (err) {
         state = "error";
+        onChange(state);
         onError(err);
     };
 
     function disconnect() {
         state = "idle";
+        onChange(state);
         if (iframe) {
             window.removeEventListener("message", handler);
             document.body.removeChild(iframe);
@@ -40,7 +57,7 @@ export function iframeManager(iframe: HTMLIFrameElement, onSuccess: (...args) =>
         } else if (json.status === "cancelled") {
             onCancelled(json);
             disconnect();
-        }else {
+        } else {
             onError(json);
         }
     }
@@ -53,6 +70,7 @@ export function iframeManager(iframe: HTMLIFrameElement, onSuccess: (...args) =>
             }
             if (state === "idle") {
                 state = "loading";
+                onChange(state);
                 document.body.appendChild(iframe);
                 window.addEventListener("message", handler, false);
             }

@@ -8,6 +8,7 @@ const config = {
     onCancelled: () => null,
     onSuccess: () => null,
     onError: () => null,
+    onChange: () => null,
 };
 
 beforeEach(() => {
@@ -16,12 +17,12 @@ beforeEach(() => {
 
 describe("iframe test case", function () {
     it("should return a iframe element", () => {
-        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError);
+        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError, config.onChange);
         expect(iframe.el.nodeName).toBe("IFRAME");
     });
 
     it("should render iframe", () => {
-        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError);
+        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError, config.onChange);
 
         iframe.connect();
 
@@ -29,7 +30,7 @@ describe("iframe test case", function () {
     });
 
     it("should render and remove iframe", async () => {
-        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError);
+        const iframe = createIframe(config.url, config.onSuccess, config.onCancelled, config.onError, config.onChange);
 
         iframe.connect();
 
