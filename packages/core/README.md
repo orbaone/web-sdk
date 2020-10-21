@@ -49,6 +49,7 @@ renderButton({
   onSuccess: (data) => {console.log(data)},
   onError: (err) => {console.log(err),
   onChange: (state) => {console.log(state);},
+  onCancelled: (data) => {console.log(data);},
   steps: ['welcome'],
        
 })
@@ -64,6 +65,7 @@ renderButton({
 | onSuccess    | function             | Callback function that is triggered after onboarding is complete. |
 | onError      | function             | Callback function that is triggered if onboarding has failed. |
 | onChange     | function             | Callback function that is triggered when the state of the button changes. |
+| onCancelled  | function             | Callback function that is triggered if the onboarding is cancelled. |
 | steps        | array                | Array of verification steps.                                 |
 
 ## Browser
@@ -90,6 +92,9 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
         },
         onChange: (state) => {
              console.log(state);
+        },
+        onCancelled: (data) => {
+            console.log(data);
         },
         steps: ["welcome"],
     });
