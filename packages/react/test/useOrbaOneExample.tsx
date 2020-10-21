@@ -31,7 +31,7 @@ export function UseOrbaOneExample() {
                 insert here
             </button>
             <span>{state}</span>
-            {errorMessage ? <span>Error</span> : null}
+            {errorMessage ? <span>Error2</span> : null}
             {successMessage ? <span>Success</span> : null}
         </div>
     );
