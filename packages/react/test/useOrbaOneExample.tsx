@@ -13,17 +13,10 @@ export function UseOrbaOneExample() {
     });
 
     onError((d: any) => setError(d));
-    onSuccess((d: any) => {
-        setSuccess(d);
-    });
+    onSuccess((d: any) => setSuccess(d));
 
-    onChange((s) => {
-        setState(s);
-    });
-
-    onCancelled((d) => {
-        setState(d);
-    });
+    onChange((s) => setState(s));
+    onCancelled((d) => setState(d));
 
     return (
         <div className="test">
@@ -31,7 +24,7 @@ export function UseOrbaOneExample() {
                 insert here
             </button>
             <span>{state}</span>
-            {errorMessage ? <span>Error2</span> : null}
+            {errorMessage ? <span>Error</span> : null}
             {successMessage ? <span>Success</span> : null}
         </div>
     );

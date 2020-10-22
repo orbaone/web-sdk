@@ -1,41 +1,37 @@
 import * as React from "react";
-import { render, fireEvent, act, cleanup } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 
 import { OrbaOneExample } from "../test/OrbaOneExample";
 import { UseOrbaOneExample } from "../test/useOrbaOneExample";
 
-describe("useOrbaOne Test Case", function () {
-    afterEach(cleanup);
+describe("useOrbaOne Test Case", () => {
     it("it should render button", () => {
-        const { getByText } = render(<UseOrbaOneExample />);
+        render(<UseOrbaOneExample />, { baseElement: document.body });
 
-        expect(getByText("Verify Me"));
+        expect(screen.getByText("Verify Me"));
     });
 
     it("should display iframe", async () => {
-        const { getByText, getByTestId } = render(<UseOrbaOneExample />);
-        act(() => {
-            fireEvent.click(getByText("Verify Me"));
-        });
+        render(<UseOrbaOneExample />, { baseElement: document.body });
+        fireEvent.click(screen.getByText("Verify Me"));
 
-        expect(getByTestId("orba-iframe"));
+        expect(screen.findByTestId("orba-iframe"));
+
+        // await waitForElementToBeRemoved(() => screen.getByTestId("loader"));
     });
 });
 
-describe("OrbaOne Test Case", function () {
-    afterEach(cleanup);
-    it("it should render button", () => {
-        const { getByText } = render(<OrbaOneExample />);
+describe("OrbaOne Test Case", () => {
+    it("it should render button", async () => {
+        render(<OrbaOneExample />, { baseElement: document.body });
 
-        expect(getByText("Verify Me"));
+        expect(screen.findByText("Verify Me"));
     });
 
     it("should display iframe", async () => {
-        const { getByText, getByTestId } = render(<OrbaOneExample />);
-        act(() => {
-            fireEvent.click(getByText("Verify Me"));
-        });
+        render(<OrbaOneExample />, { baseElement: document.body });
+        fireEvent.click(await screen.findByText("Verify Me"));
 
-        expect(getByTestId("orba-iframe"));
+        expect(screen.findByTestId("orba-iframe"));
     });
 });
