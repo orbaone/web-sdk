@@ -1,4 +1,5 @@
 import { iframeStyles } from "../styles/styles";
+import {ORBA_ONE_MESSAGE_CHANNEL,ORBA_ONE_SUCCESS,ORBA_ONE_CANCEL} from "./constants";
 
 type State = "loading" | "success" | "error" | "idle";
 
@@ -43,7 +44,7 @@ export function iframeManager(
         state = "idle";
         onChange(state);
         if (iframe) {
-            window.removeEventListener("message", handler);
+            window.removeEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler);
             document.body.removeChild(iframe);
         }
     }
@@ -51,10 +52,10 @@ export function iframeManager(
     function handler(event: any) {
         const json = JSON.parse(event.data);
 
-        if (json.status === "success") {
+        if (json.status === ORBA_ONE_SUCCESS) {
             onSuccess(json);
             disconnect();
-        } else if (json.status === "cancelled") {
+        } else if (json.status === ORBA_ONE_CANCEL) {
             onCancelled(json);
             disconnect();
         } else {
@@ -72,7 +73,7 @@ export function iframeManager(
                 state = "loading";
                 onChange(state);
                 document.body.appendChild(iframe);
-                window.addEventListener("message", handler, false);
+                window.addEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler, false);
             }
         },
 
