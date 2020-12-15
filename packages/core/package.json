@@ -18,7 +18,7 @@
         "buid:watch": "tsc --watch",
         "test": "jest --env jest-environment-jsdom-fourteen",
         "prepublishOnly": "yarn test && yarn lint && yarn build",
-        "lint": "eslint src/**/*.{js,ts,tsx} --quiet"
+        "lint": "eslint src/**/*.ts --quiet"
     },
     "keywords": [],
     "license": "ISC",
