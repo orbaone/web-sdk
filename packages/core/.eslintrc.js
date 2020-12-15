@@ -12,7 +12,6 @@ module.exports = {
             version: "detect",
         },
     },
-    extends: ["plugin:@typescript-eslint/recommended"],
     rules: {
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
