@@ -1,4 +1,6 @@
 import { iframeStyles } from "../styles/styles";
+import {verificationUrl} from "../helpers/defaultConfig";
+
 import {ORBA_ONE_MESSAGE_CHANNEL,ORBA_ONE_SUCCESS,ORBA_ONE_CANCEL} from "./constants";
 
 type State = "loading" | "success" | "error" | "idle";
@@ -50,17 +52,20 @@ export function iframeManager(
     }
 
     function handler(event: any) {
-        const json = JSON.parse(event.data);
-
-        if (json.status === ORBA_ONE_SUCCESS) {
-            onSuccess(json);
-            disconnect();
-        } else if (json.status === ORBA_ONE_CANCEL) {
-            onCancelled(json);
-            disconnect();
-        } else {
-            onError(json);
+        console.log(event)
+        if (event.origin != verificationUrl) {
+            const json = JSON.parse(event.data)
+            if (json.status === ORBA_ONE_SUCCESS) {
+                onSuccess(json);
+                disconnect();
+            } else if (json.status === ORBA_ONE_CANCEL) {
+                onCancelled(json);
+                disconnect();
+            } else {
+                onError(json);
+            }
         }
+
     }
 
     return {
@@ -73,7 +78,7 @@ export function iframeManager(
                 state = "loading";
                 onChange(state);
                 document.body.appendChild(iframe);
-                window.addEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler, false);
+                window.addEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler);
             }
         },
 

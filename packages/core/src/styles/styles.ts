@@ -21,6 +21,7 @@ const iframeStyles = `
  left: 0;
  width: 100vw;
  height: 100vh;
+ height: -webkit-fill-available;
  border: none;
 `;
 
