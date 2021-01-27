@@ -57,18 +57,3 @@ export function getSessionUrl(verificationUrl: string, apiKey: string, applicant
     return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
 }
 
-export function getApplicationId(apiUrl: string, apiKey: string) {
-    return fetch(`${apiUrl}/applicants/request`, {
-        headers: {
-            Accept: "application/json",
-            "Accept-Enconding": "gzip, deflate, br",
-            "Content-Type": "application/json",
-            Connection: "keep-alive",
-            PublicKey: apiKey,
-        },
-        method: "POST",
-        body: JSON.stringify({
-            publicKey: apiKey,
-        }),
-    });
-}
