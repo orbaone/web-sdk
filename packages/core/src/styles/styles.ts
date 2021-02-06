@@ -19,6 +19,7 @@ const iframeStyles = `
  position: absolute;
  top: 0;
  left: 0;
+ bottom: 0;
  width: 100vw;
  height: 100vh;
  height: -webkit-fill-available;
