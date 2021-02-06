@@ -48,6 +48,7 @@ export function iframeManager(
         onChange(state);
         if (iframe) {
             window.removeEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler);
+            document.body.style.overflowY = "auto";
             document.body.removeChild(iframe);
         }
     }
@@ -74,6 +75,7 @@ export function iframeManager(
             if (state === "idle") {
                 state = "loading";
                 onChange(state);
+                document.body.style.overflowY = "hidden";
                 document.body.appendChild(iframe);
                 window.addEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler);
             }
