@@ -47,10 +47,8 @@ renderButton({
   target: "#button",
   disableStyle: false,
   onSuccess: (data) => {console.log(data)},
-  onError: (err) => {console.log(err),
-  onChange: (state) => {console.log(state);},
-  steps: ['welcome'],
-       
+  onError: (err) => {console.log(err)},
+  onCancelled: (state) => {console.log(state);},       
 })
 ```
 
@@ -63,7 +61,7 @@ renderButton({
 | disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.             |
 | onSuccess    | function             | Callback function that is triggered after onboarding is complete. |
 | onError      | function             | Callback function that is triggered if onboarding has failed. |
-| onChange     | function             | Callback function that is triggered when the state of the button changes. |
+| onCancelled     | function             | Callback function that is triggered when the state of the button changes. |
 | steps        | array                | Array of verification steps.                                 |
 
 ## Browser
@@ -71,7 +69,7 @@ renderButton({
 OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 
 ```htm
-<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core@1.0.5/lib/index.bundle.js" />
+<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core" />
 ```
 
 #### Example Usage

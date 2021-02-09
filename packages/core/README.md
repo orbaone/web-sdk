@@ -29,7 +29,7 @@ npm install --save @orbaone/core
 
 # 2. Get an API Key
 
-Orba One uses API keys to allow access to the API and show onboarded users in your dashboard. Login to your Orba One account and create a new Orba One API key here: [Developer Dashboard](https://vendor.orbaone.com).
+Orba One uses API keys to allow access to the API and show onboarded users in your dashboard. Login to your Orba One account and create a new Orba One API key here: [Developer Dashboard](https://dashboard.orbaone.com).
 
 # 3. Render the verification button
 
@@ -44,37 +44,32 @@ import { renderButton } from "@orbaone/core";
 ```javascript
 renderButton({
   apiKey: "exampleAPIKey",
-  applicantId: "test",
   target: "#button",
   disableStyle: false,
   onSuccess: (data) => {console.log(data)},
-  onError: (err) => {console.log(err),
-  onChange: (state) => {console.log(state);},
-  onCancelled: (data) => {console.log(data);},
-  steps: ['welcome'],
+  onError: (err) => {console.log(err)},
+  onCancelled: (state) => {console.log(state);},       
 })
 ```
 
 #### renderButton(config) Options
 
-| Parameter    | Type                 | Description                                                               |
-| ------------ | -------------------- | ------------------------------------------------------------------------- |
-| target       | string or DOMElement | The DOM element you want to mount the button on.                          |
-| apiKey       | string               | The OrbaOne Key you obtained from the dashboard.                          |
-| applicantId  | string               | The application ID Use to create the verification session.                |
-| disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.                          |
-| onSuccess    | function             | Callback function that is triggered after onboarding is complete.         |
-| onError      | function             | Callback function that is triggered if onboarding has failed.             |
-| onChange     | function             | Callback function that is triggered when the state of the button changes. |
-| onCancelled  | function             | Callback function that is triggered if the onboarding is cancelled.       |
-| steps        | array                | Array of verification steps.                                              |
+| Parameter    | Type                 | Description                                                  |
+| ------------ | -------------------- | ------------------------------------------------------------ |
+| target       | string or DOMElement | The DOM element you want to mount the button on.             |
+| apiKey       | string               | The OrbaOne Key you obtained from the dashboard.             |
+| disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.             |
+| onSuccess    | function             | Callback function that is triggered after onboarding is complete. |
+| onError      | function             | Callback function that is triggered if onboarding has failed. |
+| onCancelled     | function             | Callback function that is triggered when the state of the button changes. |
+| steps        | array                | Array of verification steps.                                 |
 
 ## Browser
 
 OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 
 ```htm
-<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core@1.0.5/lib/index.bundle.js" />
+<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core" />
 ```
 
 #### Example Usage
@@ -83,7 +78,6 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 <script type="text/javascript">
     OrbaOne.renderButton({
         apiKey: "exampleAPIKey",
-        applicantId: "test",
         target: "#button",
         disableStyle: false,
         onSuccess: (data) => {
@@ -93,10 +87,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
             console.log(err);
         },
         onChange: (state) => {
-            console.log(state);
-        },
-        onCancelled: (data) => {
-            console.log(data);
+             console.log(state);
         },
         steps: ["welcome"],
     });
