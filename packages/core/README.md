@@ -29,7 +29,7 @@ npm install --save @orbaone/core
 
 # 2. Get an API Key
 
-Orba One uses API keys to allow access to the API and show onboarded users in your dashboard. Login to your Orba One account and create a new Orba One API key here: [Developer Dashboard](https://dashboard.orbaone.com).
+Orba One uses API keys to allow access to the API and show onboarded users in your dashboard. Login to your Orba One account and create a new Orba One API key form your [Developer Dashboard](https://dashboard.orbaone.com).
 
 # 3. Render the verification button
 
