@@ -44,12 +44,20 @@ import { renderButton } from "@orbaone/core";
 ```javascript
 renderButton({
   apiKey: "exampleAPIKey",
+  applicantId: "0000-0000-0000-0000",
   target: "#button",
   disableStyle: false,
-  onSuccess: (data) => {console.log(data)},
-  onError: (err) => {console.log(err)},
-  onCancelled: (state) => {console.log(state);},       
-})
+  onSuccess: (data) => {
+    console.log(data);
+  },
+  onError: (err) => {
+    console.log(err);
+  },
+  onCancelled: (state) => {
+    console.log(state);
+  },
+});
+
 ```
 
 #### renderButton(config) Options
@@ -58,6 +66,7 @@ renderButton({
 | ------------ | -------------------- | ------------------------------------------------------------ |
 | target       | string or DOMElement | The DOM element you want to mount the button on.             |
 | apiKey       | string               | The OrbaOne Key you obtained from the dashboard.             |
+| applicantId  | string               | The OrbaOne Applicant ID                                     |
 | disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.             |
 | onSuccess    | function             | Callback function that is triggered after onboarding is complete. |
 | onError      | function             | Callback function that is triggered if onboarding has failed. |
@@ -69,7 +78,7 @@ renderButton({
 OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 
 ```htm
-<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core" />
+<script type="text/javascript" defer="true" src="https://unpkg.com/@orbaone/core@1.0.15/lib/index.umd.js" />
 ```
 
 #### Example Usage
@@ -78,6 +87,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 <script type="text/javascript">
     OrbaOne.renderButton({
         apiKey: "exampleAPIKey",
+        applicantId: "0000-0000-0000-0000",
         target: "#button",
         disableStyle: false,
         onSuccess: (data) => {
@@ -86,7 +96,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
         onError: (err) => {
             console.log(err);
         },
-        onChange: (state) => {
+        onCancelled: (state) => {
              console.log(state);
         },
         steps: ["welcome"],
