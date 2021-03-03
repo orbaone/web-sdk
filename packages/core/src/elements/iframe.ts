@@ -1,6 +1,8 @@
 import { iframeStyles } from "../styles/styles";
 
-import { ORBA_ONE_MESSAGE_CHANNEL, ORBA_ONE_SUCCESS, ORBA_ONE_CANCEL } from "./constants";
+import { loadingDiv } from "../helpers/elements";
+
+import {ORBA_ONE_MESSAGE_CHANNEL,ORBA_ONE_SUCCESS,ORBA_ONE_CANCEL} from "./constants";
 
 type State = "loading" | "success" | "error" | "idle";
 
@@ -58,6 +60,8 @@ export function iframeManager(
         // prevent unnecessary margins to the scrollbar
         document.documentElement.style.overflowY = "visible";
         document.body.removeChild(iframe);
+        document.body.removeChild(loadingDiv);
+
     }
 
     function addIFrame() {
