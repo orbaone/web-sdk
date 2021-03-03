@@ -3,7 +3,7 @@ import { createIframe } from "./elements/iframe";
 import { verificationUrl } from "./helpers/defaultConfig";
 import { loadingDiv } from "./helpers/elements";
 import { OrbaOneConfig } from "./helpers/types";
-import { loader } from "./styles/templates";
+import { iframeLoader } from "./styles/templates";
 import { getSessionUrl, isValidConfig } from "./helpers/utils";
 
 function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof createButton>): void {
@@ -11,22 +11,7 @@ function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof
 
     //Set Loading state
     button.setState("loading");
-    loadingDiv.innerHTML = `
-    <div 
-        style="
-            position:absolute; 
-            top:0;
-            bottom:0; 
-            left:0; 
-            right:0; 
-            display:flex; 
-            align-items:center; 
-            justify-content:center;
-            background-color: rgba(255, 255, 255, 0.8); 
-    ">
-    ${loader}
-    </div>
-    `;
+    loadingDiv.innerHTML = iframeLoader;
 
     document.body.appendChild(loadingDiv);
     const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps);
