@@ -62,7 +62,10 @@ export function iframeManager(
 
     function addIFrame() {
         background.style.overflow = "hidden";
-        background.style.height = "0px";
+        const innerHeight = window.innerHeight.toString() + "px";
+        background.style.height = innerHeight;
+        iframe.style.height = innerHeight;
+        background.style.marginTop = "0";
         document.body.appendChild(iframe);
     }
 
