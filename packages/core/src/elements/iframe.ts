@@ -61,11 +61,17 @@ export function iframeManager(
     }
 
     function addIFrame() {
+        // prevent scrolling
         background.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
+        // Makes iframe take up the entire screen (accounts for navbar height on mobile)
         const innerHeight = window.innerHeight.toString() + "px";
         background.style.height = innerHeight;
         iframe.style.height = innerHeight;
         background.style.marginTop = "0";
+        // set height of <html> element
+        document.documentElement.style.height = innerHeight;
+        
         document.body.appendChild(iframe);
     }
 
