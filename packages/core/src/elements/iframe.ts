@@ -31,7 +31,8 @@ export function iframeManager(
     onChange: (state: State) => void,
 ) {
     let state: State = "idle";
-    let bodyContent: string = "";
+    const background: HTMLElement = document.getElementById("app")!;
+
 
     iframe.onload = function () {
         state = "success";
@@ -55,12 +56,13 @@ export function iframeManager(
 
     function removeIFrame() {
         document.body.removeChild(iframe); 
-        document.body.innerHTML = bodyContent;
+        background.style.overflow = "auto";
+        background.style.height = "auto";
     }
 
     function addIFrame() {
-        bodyContent = document.body.innerHTML;
-        document.body.innerHTML = "";
+        background.style.overflow = "hidden";
+        background.style.height = "0px";
         document.body.appendChild(iframe);
     }
 
