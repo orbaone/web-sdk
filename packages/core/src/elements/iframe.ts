@@ -31,7 +31,6 @@ export function iframeManager(
     onChange: (state: State) => void,
 ) {
     let state: State = "idle";
-    let bodyContent: string = "";
 
     iframe.onload = function () {
         state = "success";
@@ -55,12 +54,22 @@ export function iframeManager(
 
     function removeIFrame() {
         document.body.removeChild(iframe); 
-        document.body.innerHTML = bodyContent;
+        document.body.style.overflow = "auto";
+        document.body.style.height = "auto";
     }
 
     function addIFrame() {
-        bodyContent = document.body.innerHTML;
-        document.body.innerHTML = "";
+        // prevent scrolling
+        document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
+        // Makes iframe take up the entire screen (accounts for navbar height on mobile)
+        const innerHeight = window.innerHeight.toString() + "px";
+        document.body.style.height = innerHeight;
+        iframe.style.height = innerHeight;
+        document.body.style.marginTop = "0";
+        // set height of <html> element
+        document.documentElement.style.height = innerHeight;
+        
         document.body.appendChild(iframe);
     }
 
