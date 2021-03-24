@@ -31,8 +31,6 @@ export function iframeManager(
     onChange: (state: State) => void,
 ) {
     let state: State = "idle";
-    const background: HTMLElement = document.getElementById("app")!;
-
 
     iframe.onload = function () {
         state = "success";
@@ -56,19 +54,19 @@ export function iframeManager(
 
     function removeIFrame() {
         document.body.removeChild(iframe); 
-        background.style.overflow = "auto";
-        background.style.height = "auto";
+        document.body.style.overflow = "auto";
+        document.body.style.height = "auto";
     }
 
     function addIFrame() {
         // prevent scrolling
-        background.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
         document.documentElement.style.overflow = "hidden";
         // Makes iframe take up the entire screen (accounts for navbar height on mobile)
         const innerHeight = window.innerHeight.toString() + "px";
-        background.style.height = innerHeight;
+        document.body.style.height = innerHeight;
         iframe.style.height = innerHeight;
-        background.style.marginTop = "0";
+        document.body.style.marginTop = "0";
         // set height of <html> element
         document.documentElement.style.height = innerHeight;
         
