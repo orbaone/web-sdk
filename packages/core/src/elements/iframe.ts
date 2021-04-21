@@ -53,15 +53,17 @@ export function iframeManager(
     }
 
     function removeIFrame() {
-        document.body.removeChild(iframe); 
-        document.body.style.overflow = "auto";
-        document.body.style.height = "auto";
+        document.body.style.overflowY = "auto";
+        // The html tag has to have a overflowY value of visible instead of auto to
+        // prevent unnecessary margins to the scrollbar
+        document.documentElement.style.overflowY = "visible";
+        document.body.removeChild(iframe);
     }
 
     function addIFrame() {
         // prevent scrolling
-        document.body.style.overflow = "hidden";
-        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflowY = "hidden";
+        document.documentElement.style.overflowY = "hidden";
         // Makes iframe take up the entire screen (accounts for navbar height on mobile)
         const innerHeight = window.innerHeight.toString() + "px";
         document.body.style.height = innerHeight;
