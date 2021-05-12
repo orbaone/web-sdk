@@ -1,6 +1,8 @@
 import { iframeStyles } from "../styles/styles";
 
-import { ORBA_ONE_MESSAGE_CHANNEL, ORBA_ONE_SUCCESS, ORBA_ONE_CANCEL } from "./constants";
+import { removeLoadingScreen } from "../helpers/utils";
+
+import {ORBA_ONE_MESSAGE_CHANNEL,ORBA_ONE_SUCCESS,ORBA_ONE_CANCEL} from "./constants";
 
 type State = "loading" | "success" | "error" | "idle";
 
@@ -57,7 +59,9 @@ export function iframeManager(
         // The html tag has to have a overflowY value of visible instead of auto to
         // prevent unnecessary margins to the scrollbar
         document.documentElement.style.overflowY = "visible";
+        removeLoadingScreen();
         document.body.removeChild(iframe);
+
     }
 
     function addIFrame() {

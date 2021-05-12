@@ -1,4 +1,6 @@
 import { OrbaOneConfig } from "./types";
+import { iframeLoader } from "../styles/templates";
+import { loadingDiv } from "../helpers/elements";
 
 export function isDomElement(obj: any): obj is HTMLElement | Element {
     //! check if obj is not null explicitly because null is a type of object
@@ -57,3 +59,11 @@ export function getSessionUrl(verificationUrl: string, apiKey: string, applicant
     return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
 }
 
+export function showLoadingScreen() {
+    loadingDiv.innerHTML = iframeLoader;
+    document.body.appendChild(loadingDiv);
+}
+
+export function removeLoadingScreen() {
+    document.body.removeChild(loadingDiv);
+}

@@ -2,15 +2,16 @@ import { createButton } from "./elements/button";
 import { createIframe } from "./elements/iframe";
 import { verificationUrl } from "./helpers/defaultConfig";
 import { OrbaOneConfig } from "./helpers/types";
-
 import { getSessionUrl, isValidConfig } from "./helpers/utils";
+import { showLoadingScreen } from "./helpers/utils";
 
 function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof createButton>): void {
     const { apiKey, applicantId, onSuccess, onCancelled, onError, steps } = config;
 
     //Set Loading state
     button.setState("loading");
-
+    showLoadingScreen();
+    
     const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps);
     const iframe = createIframe(url, applicantId, onSuccess, onCancelled, onError, (state) => {
         button.setState(state);
