@@ -84,10 +84,28 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 
 ```html
 <script type="text/javascript">
+    // Verifying An Applicant
     OrbaOne.renderButton({
         apiKey: "exampleAPIKey",
         target: "#button",
         applicantId: "",
+        disableStyle: false,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError: (err) => {
+            console.log(err);
+        },
+        onChange: (state) => {
+             console.log(state);
+        },
+        steps: ["welcome"],
+    });
+
+    // Verifying A Company
+    OrbaOne.renderButton({
+        apiKey: "exampleAPIKey",
+        target: "#button",
         companyId: "",
         disableStyle: false,
         onSuccess: (data) => {
