@@ -1,6 +1,6 @@
 import { iframeStyles } from "../styles/styles";
 
-import {ORBA_ONE_MESSAGE_CHANNEL,ORBA_ONE_SUCCESS,ORBA_ONE_CANCEL} from "./constants";
+import { ORBA_ONE_MESSAGE_CHANNEL, ORBA_ONE_SUCCESS, ORBA_ONE_CANCEL } from "./constants";
 
 type State = "loading" | "success" | "error" | "idle";
 
@@ -48,22 +48,43 @@ export function iframeManager(
         onChange(state);
         if (iframe) {
             window.removeEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler);
-            document.body.style.overflowY = "auto";
-            document.body.removeChild(iframe);
+            removeIFrame();
         }
+    }
+
+    function removeIFrame() {
+        document.body.style.overflowY = "auto";
+        // The html tag has to have a overflowY value of visible instead of auto to
+        // prevent unnecessary margins to the scrollbar
+        document.documentElement.style.overflowY = "visible";
+        document.body.removeChild(iframe);
+    }
+
+    function addIFrame() {
+        // prevent scrolling
+        document.body.style.overflowY = "hidden";
+        document.documentElement.style.overflowY = "hidden";
+        // Makes iframe take up the entire screen (accounts for navbar height on mobile)
+        const innerHeight = window.innerHeight.toString() + "px";
+        document.body.style.height = innerHeight;
+        iframe.style.height = innerHeight;
+        document.body.style.marginTop = "0";
+        // set height of <html> element
+        document.documentElement.style.height = innerHeight;
+        
+        document.body.appendChild(iframe);
     }
 
     function handler(event: any) {
         if (event.data === ORBA_ONE_SUCCESS) {
-            onSuccess({applicantId, status:"success"});
+            onSuccess({ applicantId, status: "success" });
             disconnect();
         } else if (event.data === ORBA_ONE_CANCEL) {
-            onCancelled({applicantId, status:"cancelled"});
+            onCancelled({ applicantId, status: "cancelled" });
             disconnect();
         } else {
-            onError({applicantId, status:"error"});
+            onError({ applicantId, status: "error" });
         }
-
     }
 
     return {
@@ -75,8 +96,7 @@ export function iframeManager(
             if (state === "idle") {
                 state = "loading";
                 onChange(state);
-                document.body.style.overflowY = "hidden";
-                document.body.appendChild(iframe);
+                addIFrame();
                 window.addEventListener(ORBA_ONE_MESSAGE_CHANNEL, handler);
             }
         },
