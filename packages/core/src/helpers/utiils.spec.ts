@@ -95,9 +95,18 @@ describe("isValidConfig test case", function () {
 });
 
 describe("create session url test case", function () {
-    it("should return a valid url", () => {
-        const sessionUrl = getSessionUrl("http://test.com", "key", "1", ["welcome"]);
+    it("should return a valid applicant verification url", () => {
+        const sessionUrl = getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], applicantId:"1"});
         expect(sessionUrl).toBe("http://test.com?publicKey=key&applicantId=1&steps=welcome");
+    });
+    it("should return a valid company verification url", () => {
+        const sessionUrl = getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], companyId:"1"});
+        expect(sessionUrl).toBe("http://test.com/company/general-info?publicKey=key&companyId=1");
+    });
+    it("should throw an error if both applicantId and companyId are present", () => {
+        expect(function() {
+            getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], companyId:"1", applicantId: "1"})
+        }).toThrowError("Please specify companyId or applicantId. Both fields cannot be included. Please see https://docs.orbaone.com");
     });
 });
 

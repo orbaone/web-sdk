@@ -1,17 +1,12 @@
 import { iframeStyles } from "../styles/styles";
+import { IFrameConfig } from "../helpers/types";
 
 import { ORBA_ONE_MESSAGE_CHANNEL, ORBA_ONE_SUCCESS, ORBA_ONE_CANCEL } from "./constants";
 
 type State = "loading" | "success" | "error" | "idle";
 
-export function createIframe(
-    url: string,
-    applicantId: string,
-    onSuccess: (...args) => void,
-    onCancelled: (...args) => void,
-    onError: (...args) => void,
-    onChange: (state: State) => void,
-) {
+export function createIframe(iFrameConfig: IFrameConfig) {
+    const { url } = iFrameConfig;
     const frame = document.createElement("iframe");
     frame.allow = "geolocation; microphone; camera; fullscreen;";
     frame.src = url;
@@ -19,17 +14,11 @@ export function createIframe(
 
     //Set Test Id for DOM checking
     frame.dataset.testid = "orba-iframe";
-    return iframeManager(frame, applicantId, onSuccess, onCancelled, onError, onChange);
+    return iframeManager(frame, iFrameConfig);
 }
 
-export function iframeManager(
-    iframe: HTMLIFrameElement,
-    applicantId,
-    onSuccess: (...args) => void,
-    onCancelled: (...args) => void,
-    onError: (...args) => void,
-    onChange: (state: State) => void,
-) {
+export function iframeManager(iframe: HTMLIFrameElement, iframeConfig: IFrameConfig) {
+    const { onChange, onError, onSuccess, applicantId, companyId, onCancelled } = iframeConfig;
     let state: State = "idle";
 
     iframe.onload = function () {
@@ -71,19 +60,22 @@ export function iframeManager(
         document.body.style.marginTop = "0";
         // set height of <html> element
         document.documentElement.style.height = innerHeight;
-        
+
         document.body.appendChild(iframe);
     }
 
     function handler(event: any) {
         if (event.data === ORBA_ONE_SUCCESS) {
-            onSuccess({ applicantId, status: "success" });
+            if (applicantId) onSuccess({ applicantId, status: "success" });
+            else if (companyId) onSuccess({ companyId, status: "success" });
             disconnect();
         } else if (event.data === ORBA_ONE_CANCEL) {
-            onCancelled({ applicantId, status: "cancelled" });
+            if (applicantId) onCancelled({ applicantId, status: "cancelled" });
+            else if (companyId) onCancelled({ companyId, status: "cancelled" });
             disconnect();
         } else {
-            onError({ applicantId, status: "error" });
+            if (applicantId) onError({ applicantId, status: "error" });
+            else if (companyId) onError({ companyId, status: "error" });
         }
     }
 

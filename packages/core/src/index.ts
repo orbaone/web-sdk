@@ -11,10 +11,10 @@ function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof
     //Set Loading state
     button.setState("loading");
 
-    const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps, companyId);
-    const iframe = createIframe(url, applicantId, onSuccess, onCancelled, onError, (state) => {
+    const url = getSessionUrl({verificationUrl, apiKey, steps, companyId, applicantId});
+    const iframe = createIframe({url, applicantId, onSuccess, onCancelled, onError, onChange:(state) => {
         button.setState(state);
-    });
+    }});
     iframe.connect();
 }
 

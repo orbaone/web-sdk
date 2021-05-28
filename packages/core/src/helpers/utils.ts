@@ -1,4 +1,4 @@
-import { OrbaOneConfig } from "./types";
+import { OrbaOneConfig, SessionConfig } from "./types";
 
 export function isDomElement(obj: any): obj is HTMLElement | Element {
     //! check if obj is not null explicitly because null is a type of object
@@ -53,12 +53,13 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
     return true;
 }
 
-export function getSessionUrl(verificationUrl: string, apiKey: string, applicantId: any, steps: string[], companyId?:string) {
-    if (companyId) {
-        return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}`
-    } 
-    else {
+export function getSessionUrl(sessionConfig: SessionConfig) {
+    const { companyId, applicantId, apiKey, verificationUrl, steps } = sessionConfig;
+    if (companyId && applicantId) {
+        throw `Please specify companyId or applicantId. Both fields cannot be included. Please see https://docs.orbaone.com`;
+    } else if (companyId) {
+        return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}`;
+    } else {
         return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
     }
 }
-

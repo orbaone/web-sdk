@@ -2,8 +2,9 @@ import { createIframe } from "./iframe";
 import { getExampleDOM } from "../../../../tests/utils";
 
 import { waitForElementToBeRemoved, screen } from "@testing-library/dom";
+import { IFrameConfig } from "../helpers/types";
 
-const config = {
+const config: IFrameConfig = {
     url: "http://test.com",
     applicantId: "",
     onCancelled: () => null,
@@ -18,12 +19,12 @@ beforeEach(() => {
 
 describe("iframe test case", function () {
     it("should return a iframe element", () => {
-        const iframe = createIframe(config.url, config.applicantId, config.onSuccess, config.onCancelled, config.onError, config.onChange);
+        const iframe = createIframe(config);
         expect(iframe.el.nodeName).toBe("IFRAME");
     });
 
     it("should render iframe", () => {
-        const iframe = createIframe(config.url, config.applicantId, config.onSuccess, config.onCancelled, config.onError, config.onChange);
+        const iframe = createIframe(config);
 
         iframe.connect();
 
@@ -31,7 +32,7 @@ describe("iframe test case", function () {
     });
 
     it("should render and remove iframe", async () => {
-        const iframe = createIframe(config.url, config.applicantId, config.onSuccess, config.onCancelled, config.onError, config.onChange);
+        const iframe = createIframe(config);
 
         iframe.connect();
 
