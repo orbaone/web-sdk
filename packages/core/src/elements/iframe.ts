@@ -1,9 +1,8 @@
 import { iframeStyles } from "../styles/styles";
-import { IFrameConfig } from "../helpers/types";
+import { IFrameConfig, State } from "../helpers/types";
 
 import { ORBA_ONE_MESSAGE_CHANNEL, ORBA_ONE_SUCCESS, ORBA_ONE_CANCEL } from "./constants";
 
-type State = "loading" | "success" | "error" | "idle";
 
 export function createIframe(iFrameConfig: IFrameConfig) {
     const { url } = iFrameConfig;

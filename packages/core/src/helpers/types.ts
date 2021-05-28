@@ -29,5 +29,8 @@ export interface IFrameConfig {
     onChange: (state: State) => void;
 }
 
+export type State = "loading" | "success" | "error" | "idle";
+
+
 
 export type ButtonState = "loading" | "idle" | "success" | "error";

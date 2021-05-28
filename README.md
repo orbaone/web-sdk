@@ -63,7 +63,7 @@ renderButton({
 | ------------ | -------------------- | --------------------------------------------------------------------------|
 | target       | string or DOMElement | The DOM element you want to mount the button on.                          |
 | apiKey       | string               | The OrbaOne Key you obtained from the dashboard.                          |
-| applicantId  | string               | The id of the applicant being verified                                    |
+| applicantId  | string (optional)    | The id of the applicant being verified                                    |
 | companyId    | string (optional)    | The id of the company being verified                                      |
 | apiKey       | string               | The OrbaOne Key you obtained from the dashboard.                          |
 | disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.                          |
