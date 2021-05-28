@@ -53,7 +53,12 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
     return true;
 }
 
-export function getSessionUrl(verificationUrl: string, apiKey: string, applicantId: any, steps: string[]) {
-    return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
+export function getSessionUrl(verificationUrl: string, apiKey: string, applicantId: any, steps: string[], companyId?:string) {
+    if (companyId) {
+        return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}`
+    } 
+    else {
+        return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
+    }
 }
 

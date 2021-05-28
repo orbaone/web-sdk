@@ -6,12 +6,12 @@ import { OrbaOneConfig } from "./helpers/types";
 import { getSessionUrl, isValidConfig } from "./helpers/utils";
 
 function initializeVerification(config: OrbaOneConfig, button: ReturnType<typeof createButton>): void {
-    const { apiKey, applicantId, onSuccess, onCancelled, onError, steps } = config;
+    const { apiKey, applicantId, onSuccess, onCancelled, onError, steps, companyId } = config;
 
     //Set Loading state
     button.setState("loading");
 
-    const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps);
+    const url = getSessionUrl(verificationUrl, apiKey, applicantId, steps, companyId);
     const iframe = createIframe(url, applicantId, onSuccess, onCancelled, onError, (state) => {
         button.setState(state);
     });
