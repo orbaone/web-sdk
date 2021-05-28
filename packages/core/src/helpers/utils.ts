@@ -1,4 +1,4 @@
-import { OrbaOneConfig } from "./types";
+import { OrbaOneConfig, SessionConfig } from "./types";
 
 export function isDomElement(obj: any): obj is HTMLElement | Element {
     //! check if obj is not null explicitly because null is a type of object
@@ -13,11 +13,6 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
         target: (val: any) => {
             if (typeof val !== "string" && !isDomElement(val)) {
                 throw `target ${val} must be of type string or DOM Element, please see https://docs.orbaone.com`;
-            }
-        },
-        applicantId: (val: any) => {
-            if (typeof val !== "string") {
-                throw `applicantId key required, please see https://docs.orbaone.com`;
             }
         },
         apiKey: (val: any) => {
@@ -53,7 +48,15 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
     return true;
 }
 
-export function getSessionUrl(verificationUrl: string, apiKey: string, applicantId: any, steps: string[]) {
-    return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
+export function getSessionUrl(sessionConfig: SessionConfig) {
+    const { companyId, applicantId, apiKey, verificationUrl, steps } = sessionConfig;
+    if (companyId && applicantId) {
+        throw `Please specify companyId or applicantId. Both fields cannot be included. Please see https://docs.orbaone.com`;
+    } else if (companyId) {
+        return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}`;
+    } else if (applicantId) {
+        return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
+    } else {
+        throw `Please specify companyId or applicantId. Please see https://docs.orbaone.com`;
+    }
 }
-
