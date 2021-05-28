@@ -50,12 +50,6 @@ describe("isValidConfig test case", function () {
             `target ${undefined} must be of type string or DOM Element, please see https://docs.orbaone.com`,
         );
     });
-    
-    it("should throw applicantId error message", function () {
-        expect(function () {
-            isValidConfig(["applicantId"], { target: "#button" });
-        }).toThrowError("applicantId key required, please see https://docs.orbaone.com");
-    });
 
     it("should throw apiKey error message", function () {
         expect(function () {
@@ -107,6 +101,11 @@ describe("create session url test case", function () {
         expect(function() {
             getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], companyId:"1", applicantId: "1"})
         }).toThrowError("Please specify companyId or applicantId. Both fields cannot be included. Please see https://docs.orbaone.com");
+    });
+    it("should throw an error if neither applicantId or companyId are present", () => {
+        expect(function() {
+            getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"]})
+        }).toThrowError("Please specify companyId or applicantId. Please see https://docs.orbaone.com");
     });
 });
 

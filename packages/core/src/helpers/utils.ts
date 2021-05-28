@@ -15,11 +15,6 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
                 throw `target ${val} must be of type string or DOM Element, please see https://docs.orbaone.com`;
             }
         },
-        applicantId: (val: any) => {
-            if (typeof val !== "string") {
-                throw `applicantId key required, please see https://docs.orbaone.com`;
-            }
-        },
         apiKey: (val: any) => {
             if (typeof val !== "string") {
                 throw `apiKey required, please see https://docs.orbaone.com`;
@@ -59,7 +54,9 @@ export function getSessionUrl(sessionConfig: SessionConfig) {
         throw `Please specify companyId or applicantId. Both fields cannot be included. Please see https://docs.orbaone.com`;
     } else if (companyId) {
         return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}`;
-    } else {
+    } else if (applicantId) {
         return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
+    } else {
+        throw `Please specify companyId or applicantId. Please see https://docs.orbaone.com`;
     }
 }
