@@ -42,13 +42,26 @@ Orba One uses API keys to allow access to the API and show onboarded users in yo
 import { renderButton } from "@orbaone/core";
 ```
 
-#### Example Usage
+#### Example Usage (Applicant Verification)
 
 ```javascript
 renderButton({
   apiKey: "exampleAPIKey",
   target: "#button",
   applicantId: "",
+  disableStyle: false,
+  onSuccess: (data) => {console.log(data)},
+  onError: (err) => {console.log(err)},
+  onCancelled: (state) => {console.log(state);},       
+})
+```
+
+#### Example Usage (Company Verification)
+
+```javascript
+renderButton({
+  apiKey: "exampleAPIKey",
+  target: "#button",
   companyId: "",
   disableStyle: false,
   onSuccess: (data) => {console.log(data)},
@@ -84,10 +97,28 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
 
 ```html
 <script type="text/javascript">
+    // Verifying An Applicant
     OrbaOne.renderButton({
         apiKey: "exampleAPIKey",
         target: "#button",
         applicantId: "",
+        disableStyle: false,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError: (err) => {
+            console.log(err);
+        },
+        onChange: (state) => {
+             console.log(state);
+        },
+        steps: ["welcome"],
+    });
+
+    // Verifying A Company
+    OrbaOne.renderButton({
+        apiKey: "exampleAPIKey",
+        target: "#button",
         companyId: "",
         disableStyle: false,
         onSuccess: (data) => {
