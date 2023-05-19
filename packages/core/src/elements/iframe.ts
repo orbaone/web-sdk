@@ -17,8 +17,9 @@ export function createIframe(iFrameConfig: IFrameConfig) {
 }
 
 export function iframeManager(iframe: HTMLIFrameElement, iframeConfig: IFrameConfig) {
-    const { onChange, onError, onSuccess, applicantId, companyId, onCancelled } = iframeConfig;
+    const { onChange, onError, onSuccess, applicantId, companyId, useAudioInstructions, onCancelled } = iframeConfig;
     let state: State = "idle";
+    console.log(`Using audio instructions: ${useAudioInstructions}`);
 
     iframe.onload = function () {
         state = "success";

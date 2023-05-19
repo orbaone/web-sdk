@@ -49,13 +49,13 @@ export function isValidConfig(requiredProps: Array<keyof Omit<OrbaOneConfig, "di
 }
 
 export function getSessionUrl(sessionConfig: SessionConfig) {
-    const { companyId, applicantId, apiKey, verificationUrl, steps } = sessionConfig;
+    const { companyId, applicantId, apiKey, verificationUrl, steps, useAudioInstructions } = sessionConfig;
     if (companyId && applicantId) {
         throw `Please specify companyId or applicantId. Both fields cannot be included. Please see https://docs.orbaone.com`;
     } else if (companyId) {
-        return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}`;
+        return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}&useAudioInstructions=${useAudioInstructions}`;
     } else if (applicantId) {
-        return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}`;
+        return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&useAudioInstructions=${useAudioInstructions}&steps=${steps.join("&steps=")}`;
     } else {
         throw `Please specify companyId or applicantId. Please see https://docs.orbaone.com`;
     }

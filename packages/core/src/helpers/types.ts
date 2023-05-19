@@ -4,6 +4,7 @@ export interface OrbaOneConfig {
     applicantId?: string;
     companyId?: string;
     disableStyle?: boolean;
+    useAudioInstructions?: boolean;
     onSuccess: (result: any) => void;
     onError: (result: any) => void;
     onCancelled: (result: string) => void;
@@ -17,12 +18,14 @@ export interface SessionConfig {
     steps: string[];
     companyId?: string;
     applicantId?: any;
+    useAudioInstructions?: boolean;
 }
 
 export interface IFrameConfig {
     url: string;
     applicantId?: string;
     companyId?: string;
+    useAudioInstructions?: boolean;
     onSuccess: (...args) => void;
     onCancelled: (...args) => void;
     onError: (...args) => void;
