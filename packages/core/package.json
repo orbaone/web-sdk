@@ -1,18 +1,18 @@
 {
     "name": "@orbaone/core",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "",
     "main": "lib/index.js",
     "module": "lib/index.es.js",
     "umd:main": "lib/index.umd.js",
     "types": "lib/index.d.ts",
-    "repository": "git@github.com/orbaone/button.git",
+    "repository": "git@github.com/orbaone/web-sdk.git",
     "author": "Nicolas Brown <nclsbrwn@gmail.com>",
     "contributors": [
         "Jordan Jones <proxima.aust@gmail.com> (https://heyjordn.com)",
         "Rojay Simpson <harrysmith1991@gmail.com>"
     ],
-    "bugs": "https://github.com/orbaone/button/issues",
+    "bugs": "https://github.com/orbaone/web-sdk/issues",
     "scripts": {
         "build": "rollup -c",
         "buid:watch": "tsc --watch",

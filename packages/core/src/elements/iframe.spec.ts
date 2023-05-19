@@ -7,6 +7,7 @@ import { IFrameConfig } from "../helpers/types";
 const config: IFrameConfig = {
     url: "http://test.com",
     applicantId: "",
+    useAudioInstructions: false,
     onCancelled: () => null,
     onSuccess: () => null,
     onError: () => null,

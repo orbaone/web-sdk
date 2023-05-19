@@ -8,6 +8,7 @@ const config: OrbaOneConfig = {
     apiKey: "test",
     applicantId: '1',
     target: "#button",
+    useAudioInstructions: false,
     onSuccess: () => null,
     onError: () => null,
     onCancelled: () => null,

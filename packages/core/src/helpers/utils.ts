@@ -55,7 +55,7 @@ export function getSessionUrl(sessionConfig: SessionConfig) {
     } else if (companyId) {
         return `${verificationUrl}/company/general-info?publicKey=${apiKey}&companyId=${companyId}&useAudioInstructions=${useAudioInstructions}`;
     } else if (applicantId) {
-        return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&useAudioInstructions=${useAudioInstructions}&steps=${steps.join("&steps=")}`;
+        return `${verificationUrl}?publicKey=${apiKey}&applicantId=${applicantId}&steps=${steps.join("&steps=")}&useAudioInstructions=${useAudioInstructions}`;
     } else {
         throw `Please specify companyId or applicantId. Please see https://docs.orbaone.com`;
     }

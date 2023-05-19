@@ -90,12 +90,12 @@ describe("isValidConfig test case", function () {
 
 describe("create session url test case", function () {
     it("should return a valid applicant verification url", () => {
-        const sessionUrl = getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], applicantId:"1"});
-        expect(sessionUrl).toBe("http://test.com?publicKey=key&applicantId=1&steps=welcome");
+        const sessionUrl = getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], applicantId:"1", useAudioInstructions:false});
+        expect(sessionUrl).toBe("http://test.com?publicKey=key&applicantId=1&steps=welcome&useAudioInstructions=false");
     });
     it("should return a valid company verification url", () => {
-        const sessionUrl = getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], companyId:"1"});
-        expect(sessionUrl).toBe("http://test.com/company/general-info?publicKey=key&companyId=1");
+        const sessionUrl = getSessionUrl({verificationUrl:"http://test.com", apiKey:"key", steps:["welcome"], companyId:"1", useAudioInstructions:false});
+        expect(sessionUrl).toBe("http://test.com/company/general-info?publicKey=key&companyId=1&useAudioInstructions=false");
     });
     it("should throw an error if both applicantId and companyId are present", () => {
         expect(function() {
