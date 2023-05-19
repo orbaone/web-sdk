@@ -5,6 +5,7 @@ export interface OrbaOneConfig {
     companyId?: string;
     disableStyle?: boolean;
     useAudioInstructions?: boolean;
+    environment?: string;
     onSuccess: (result: any) => void;
     onError: (result: any) => void;
     onCancelled: (result: string) => void;
