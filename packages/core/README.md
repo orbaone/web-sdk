@@ -47,6 +47,7 @@ renderButton({
   applicantId: "0000-0000-0000-0000",
   target: "#button",
   disableStyle: false,
+  useAudioInstructions: false,
   onSuccess: (data) => {
     console.log(data);
   },
@@ -62,16 +63,19 @@ renderButton({
 
 #### renderButton(config) Options
 
-| Parameter    | Type                 | Description                                                  |
-| ------------ | -------------------- | ------------------------------------------------------------ |
-| target       | string or DOMElement | The DOM element you want to mount the button on.             |
-| apiKey       | string               | The OrbaOne Key you obtained from the dashboard.             |
-| applicantId  | string               | The OrbaOne Applicant ID                                     |
-| disableStyle | boolean (optional)   | The OrbaOne Key you obtained from the dashboard.             |
-| onSuccess    | function             | Callback function that is triggered after onboarding is complete. |
-| onError      | function             | Callback function that is triggered if onboarding has failed. |
-| onCancelled     | function             | Callback function that is triggered when the state of the button changes. |
-| steps        | array                | Array of verification steps.                                 |
+| Parameter            | Type                 | Description                                                               |
+| -------------------- | -------------------- | --------------------------------------------------------------------------|
+| target               | string or DOMElement | The DOM element you want to mount the button on.                          |
+| apiKey               | string               | The OrbaOne Key you obtained from the dashboard.                          |
+| applicantId          | string (optional)    | The id of the applicant being verified                                    |
+| companyId            | string (optional)    | The id of the company being verified                                      |
+| apiKey               | string               | The OrbaOne Key you obtained from the dashboard.                          |
+| disableStyle         | boolean (optional)   | Disables styling.                                                         |
+| useAudioInstructions | boolean (optional)   | Specifies whether or not to use audio instructions.                       |
+| onSuccess            | function             | Callback function that is triggered after onboarding is complete.         |
+| onError              | function             | Callback function that is triggered if onboarding has failed.             |
+| onCancelled          | function             | Callback function that is triggered when the state of the button changes. |
+| steps                | array                | Array of verification steps.                                              |
 
 ## Browser
 
@@ -90,6 +94,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
         applicantId: "0000-0000-0000-0000",
         target: "#button",
         disableStyle: false,
+        useAudioInstructions: false,
         onSuccess: (data) => {
             console.log(data);
         },
