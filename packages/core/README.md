@@ -108,3 +108,7 @@ OrbaOne is available over [unpkg](https://unpkg.com/) CDN
     });
 </script>
 ```
+
+###### Local Development Testing ##########
+Create an index.html file in the root directory of the application.
+Embed the following script: <script src="packages/core/lib/index.js"></script> and then follow the instructions found in the Example section

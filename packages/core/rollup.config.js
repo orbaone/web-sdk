@@ -1,6 +1,6 @@
 import del from "rollup-plugin-delete";
 import pkg from "./package.json";
-import ts from "@wessberg/rollup-plugin-ts";
+import ts from "rollup-plugin-ts";
 import { terser } from "rollup-plugin-terser";
 
 export default {

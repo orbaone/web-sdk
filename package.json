@@ -14,6 +14,10 @@
         "packages/*"
     ],
     "devDependencies": {
-        "lerna": "^3.22.1"
+        "lerna": "^8.0.2",
+        "rollup-plugin-ts": "^3.4.5"
+    },
+    "dependencies": {
+        "@wessberg/rollup-plugin-ts": "2.0.4"
     }
 }
